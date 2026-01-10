@@ -1,15 +1,12 @@
 
 // --- 전역 변수 및 상수 ---
-// 사용자가 제공한 새로운 모델 URL로 교체
 const URL = "https://teachablemachine.withgoogle.com/models/xQ-P0uqTP/";
-let model, webcam, maxPredictions;
+let model, maxPredictions;
 
 // --- DOM 요소 ---
-const webcamButton = document.getElementById("webcam-button");
 const fileUpload = document.getElementById("file-upload");
 const fileUploadButton = document.getElementById("file-upload-button");
 const imagePreview = document.getElementById("image-preview");
-const webcamContainer = document.getElementById("webcam-container");
 const placeholder = document.getElementById("placeholder-container");
 const resultContainer = document.getElementById("result-container");
 const resultTitle = document.getElementById("result-title");
@@ -22,7 +19,6 @@ function showLoader(show) {
 
 // --- 초기화 ---
 document.addEventListener('DOMContentLoaded', () => {
-    webcamButton.addEventListener('click', initWebcam);
     fileUploadButton.addEventListener('click', () => fileUpload.click());
     fileUpload.addEventListener('change', handleFileSelect);
 });
@@ -43,49 +39,6 @@ async function loadModel() {
     } finally {
         showLoader(false);
     }
-}
-
-// --- 웹캠 관련 함수 ---
-async function initWebcam() {
-    if (webcam && webcam.running) {
-        await stopWebcam();
-        return;
-    }
-    await resetState();
-    showLoader(true);
-    placeholder.style.display = 'none';
-
-    try {
-        await loadModel(); 
-        const flip = true;
-        webcam = new tmImage.Webcam(300, 300, flip);
-        await webcam.setup();
-        await webcam.play();
-        webcamContainer.appendChild(webcam.canvas);
-        webcamButton.textContent = '웹캠 끄기';
-        window.requestAnimationFrame(loop);
-    } catch (error) {
-        console.error("웹캠 오류:", error);
-        await stopWebcam();
-    } finally {
-        showLoader(false);
-    }
-}
-
-async function loop() {
-    if (webcam && webcam.running) {
-        webcam.update();
-        await predict(webcam.canvas);
-        window.requestAnimationFrame(loop);
-    }
-}
-
-async function stopWebcam() {
-    if (webcam) {
-        await webcam.stop();
-        webcam = null;
-    }
-    await resetState();
 }
 
 // --- 파일 업로드 관련 함수 ---
@@ -157,16 +110,10 @@ function updateResultUI(prediction) {
 
 // --- 상태 초기화 ---
 async function resetState() {
-    if (webcam && webcam.running) {
-        await webcam.stop();
-    }
-    webcam = null;
-    webcamContainer.innerHTML = '';
     imagePreview.style.display = 'none';
     imagePreview.src = '#';
     imagePreview.onload = null; 
     placeholder.style.display = 'flex';
     resultContainer.classList.remove('active');
-    webcamButton.textContent = '웹캠 사용하기';
     fileUpload.value = '';
 }
