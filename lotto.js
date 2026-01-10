@@ -1,74 +1,56 @@
 
-function generateLottoNumbers() {
-    const container = document.getElementById('lotto-numbers-container');
-    container.innerHTML = ''; 
-    const numbers = new Set();
-    while(numbers.size < 6) {
-        numbers.add(Math.floor(Math.random() * 45) + 1);
-    }
-    const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-    sortedNumbers.forEach(number => {
-        const ball = document.createElement('lotto-ball');
-        ball.setAttribute('number', number);
-        container.appendChild(ball);
-    });
-}
-
-class LottoBall extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
-
-    connectedCallback() {
-        const number = this.getAttribute('number');
-        let color;
-        if (number <= 10) color = '#f9c943';
-        else if (number <= 20) color = '#4a90e2';
-        else if (number <= 30) color = '#e35050';
-        else if (number <= 40) color = '#777';
-        else color = '#50c37f';
-
-        this.shadowRoot.innerHTML = `
-            <style>
-              .ball {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: var(--ball-size, 60px);
-                height: var(--ball-size, 60px);
-                border-radius: 50%;
-                /* Updated gradient for a glossier, 3D effect */
-                background: radial-gradient(circle at 35% 35%, hsl(0, 0%, 100%, 0.9), ${color} 80%);
-                color: #fff;
-                font-size: calc(var(--ball-size) * 0.45);
-                font-weight: bold;
-                text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-                /* Updated shadow for a lifted feel */
-                box-shadow: 0 6px 12px rgba(0,0,0,0.25), inset 0 -4px 4px rgba(0,0,0,0.2);
-                animation: appear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* more playful animation */
-                transform: translateZ(0); /* Promotes hardware acceleration */
-              }
-              @keyframes appear {
-                  from { transform: scale(0.5) translateY(20px); opacity: 0; }
-                  to { transform: scale(1) translateY(0); opacity: 1; }
-              }
-            </style>
-            <div class="ball">${number}</div>
-        `;
-    }
-}
-
-customElements.define('lotto-ball', LottoBall);
-
-// Event listener for the generate button
 document.addEventListener('DOMContentLoaded', () => {
     const generateButton = document.getElementById('generate-button');
+    const numbersContainer = document.getElementById('lotto-numbers-container');
+
     if (generateButton) {
-        // Generate numbers on initial load if the lotto section is visible
-        if (document.getElementById('lotto')?.offsetParent !== null) {
+        generateButton.addEventListener('click', () => {
             generateLottoNumbers();
+        });
+    }
+
+    function generateLottoNumbers() {
+        // 기존 번호들을 초기화합니다.
+        numbersContainer.innerHTML = '';
+        numbersContainer.style.opacity = 0;
+
+        // 1부터 45까지의 숫자 풀을 생성합니다.
+        const numberPool = Array.from({ length: 45 }, (_, i) => i + 1);
+        const selectedNumbers = new Set();
+
+        // 중복되지 않는 6개의 숫자를 무작위로 선택합니다.
+        while (selectedNumbers.size < 6) {
+            const randomIndex = Math.floor(Math.random() * numberPool.length);
+            const selectedNumber = numberPool.splice(randomIndex, 1)[0];
+            selectedNumbers.add(selectedNumber);
         }
-        generateButton.addEventListener('click', generateLottoNumbers);
+
+        // 선택된 숫자들을 정렬하여 표시합니다.
+        const sortedNumbers = Array.from(selectedNumbers).sort((a, b) => a - b);
+        
+        // 각 번호에 대한 "공" 요소를 생성하고 애니메이션과 함께 추가합니다.
+        sortedNumbers.forEach((number, index) => {
+            setTimeout(() => {
+                const ball = document.createElement('div');
+                ball.className = 'lotto-ball';
+                ball.textContent = number;
+                ball.style.backgroundColor = getBallColor(number);
+                numbersContainer.appendChild(ball);
+            }, index * 120); // 번호가 순차적으로 나타나도록 지연 시간을 설정합니다.
+        });
+
+        // 번호 컨테이너를 부드럽게 표시합니다.
+        setTimeout(() => {
+            numbersContainer.style.opacity = 1;
+        }, 100);
+    }
+
+    // 숫자에 따라 공의 색상을 결정하는 함수입니다.
+    function getBallColor(number) {
+        if (number <= 10) return '#fbc400'; // 노란색
+        if (number <= 20) return '#69c8f2'; // 파란색
+        if (number <= 30) return '#ff7272'; // 빨간색
+        if (number <= 40) return '#aaa';    // 회색
+        return '#b0d840';                   // 녹색
     }
 });

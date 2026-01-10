@@ -1,80 +1,89 @@
 
-/* --- CSS Variables and Base Styles --- */
+/* --- CSS 변수 및 기본 스타일 --- */
 :root {
-    --primary-color: #4a90e2;
-    --secondary-color: #50e3c2;
-    --accent-color: #f5a623;
-    --dark-blue: #3b4d61;
-    --light-gray: #f7f9fb;
-    --text-color: #333;
+    --primary-color: #5D5FEF; /* 더 활기찬 보라색 계열 */
+    --secondary-color: #2ED573; /* 생생한 녹색 */
+    --accent-color: #FFC312; /* 밝은 노란색 */
+    --dark-blue: #2C3A47;
+    --light-gray: #F7F8FA;
+    --text-color: #4b4b4b;
     --white-color: #fff;
-    --border-radius-md: 8px;
-    --border-radius-lg: 16px;
-    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.15);
+    --border-radius-md: 12px; /* 좀 더 부드러운 곡선 */
+    --border-radius-lg: 20px;
+    --shadow-soft: 0 6px 15px rgba(0, 0, 0, 0.07);
+    --shadow-strong: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; background-color: var(--light-gray); color: var(--text-color); line-height: 1.6; }
-.container { max-width: 960px; margin: 0 auto; padding: 0 15px; }
+body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; background-color: var(--light-gray); color: var(--text-color); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+.container { max-width: 900px; /* 콘텐츠 최대 너비 조정 */ margin: 0 auto; padding: 0 20px; }
 
-/* --- Header and Footer --- */
-.site-header, .site-footer { background-color: var(--white-color); padding: 20px 0; box-shadow: var(--shadow-soft); }
+/* --- 헤더 및 푸터 --- */
+.site-header, .site-footer { background-color: var(--white-color); padding: 18px 0; box-shadow: none; border-bottom: 1px solid #EAECEF; }
 .site-header .container, .site-footer .container { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; }
-.main-nav a, .footer-nav a { color: var(--dark-blue); text-decoration: none; margin: 0 10px; font-weight: 500; transition: color 0.3s ease; }
+.logo { font-size: 1.6rem; font-weight: 800; /* 폰트 굵게 */ color: var(--primary-color); text-decoration: none; }
+.main-nav a, .footer-nav a { color: var(--dark-blue); text-decoration: none; margin: 0 15px; font-weight: 600; transition: color 0.3s ease; font-size: 1rem; }
 .main-nav a:hover, .footer-nav a:hover { color: var(--primary-color); }
-.site-footer { margin-top: 40px; border-top: 1px solid #eef2f5; font-size: 0.9rem; }
+.site-footer { margin-top: 50px; border-top: 1px solid #EAECEF; border-bottom: none; font-size: 0.9rem; padding: 25px 0; }
 
-/* --- Hero Section --- */
-.hero { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: var(--white-color); text-align: center; padding: 50px 0 30px; }
-.hero h1 { font-size: 2.5rem; margin: 0 0 10px; }
+/* --- 히어로 섹션 --- */
+.hero { background: var(--white-color); text-align: center; padding: 40px 0 20px; /* 여백 조정 */ }
+.hero h1 { font-size: 2.8rem; margin: 0 0 15px; color: var(--dark-blue); font-weight: 800; }
+.hero p { font-size: 1.2rem; color: #6c7a89; }
 
-/* --- Modern Tab Navigation --- */
-.tab-nav { display: flex; justify-content: center; background: var(--white-color); padding: 8px; border-radius: var(--border-radius-lg); margin: -40px auto 30px; width: fit-content; box-shadow: var(--shadow-strong); position: relative; z-index: 2; }
-.tab-link { padding: 12px 25px; border: none; background: transparent; cursor: pointer; font-size: 1rem; color: var(--dark-blue); font-weight: 600; border-radius: 12px; transition: background-color 0.3s, color 0.3s; }
-.tab-link.active { background-color: var(--primary-color); color: var(--white-color); box-shadow: 0 2px 8px rgba(74, 144, 226, 0.4); }
+/* --- 탭 메뉴 --- */
+.tab-nav { display: flex; justify-content: center; background: #E9E9F0; padding: 6px; border-radius: var(--border-radius-md); margin: 0 auto 30px; width: fit-content; position: relative; z-index: 2; }
+.tab-link { padding: 10px 22px; border: none; background: transparent; cursor: pointer; font-size: 1rem; color: var(--dark-blue); font-weight: 600; border-radius: 9px; transition: all 0.3s ease; }
+.tab-link.active { background-color: var(--white-color); color: var(--primary-color); box-shadow: 0 3px 10px rgba(0,0,0,0.1); transform: scale(1.05); }
 
-/* --- Tool Content Wrapper --- */
-.tool-content-wrapper { background: var(--white-color); padding: 40px; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-soft); }
-.tab-content { display: none; }
-.tab-content.active { display: block; animation: fadeIn 0.5s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* --- 콘텐츠 래퍼 --- */
+.tool-content-wrapper { background: var(--white-color); padding: 35px; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-soft); }
+.tab-content { display: none; } .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-.tool-content-wrapper h2 { font-size: 2.2rem; color: var(--dark-blue); margin-bottom: 10px; text-align: center; }
-.tool-content-wrapper p { max-width: 600px; margin: 0 auto 30px; font-size: 1.1rem; color: #66727f; text-align: center; }
+.tool-content-wrapper h2 { font-size: 2rem; color: var(--dark-blue); margin-bottom: 10px; text-align: center; font-weight: 700; }
+.tool-content-wrapper p { max-width: 550px; margin: 0 auto 30px; font-size: 1.1rem; color: #6c7a89; text-align: center; }
 
-/* --- Animal Classifier Specifics --- */
-.tool-content-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center; text-align: left; }
-.tool-controls h3 { font-size: 1.5rem; margin-top: 0; margin-bottom: 10px; color: var(--dark-blue); }
-.tool-controls p { text-align: left; margin-bottom: 20px; font-size: 1rem; }
+/* --- 동물상 테스트 --- */
+.tool-content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; text-align: left; }
+.tool-controls h3 { font-size: 1.6rem; margin-top: 0; margin-bottom: 15px; color: var(--dark-blue); font-weight: 700; }
+.tool-controls p { text-align: left; margin-bottom: 25px; font-size: 1rem; }
 
-#interactive-container { width: 100%; padding-top: 75%; position: relative; border-radius: var(--border-radius-lg); overflow: hidden; background: #eef2f5; box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); }
+#interactive-container { width: 100%; padding-top: 100%; position: relative; border-radius: var(--border-radius-md); overflow: hidden; background: #F0F2F5; box-shadow: inset 0 2px 4px rgba(0,0,0,0.04); }
 #webcam-container, #image-preview, #placeholder-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-#image-preview { object-fit: contain; }
-#image-preview:not([src=""]), #webcam-container.active { z-index: 10; }
+#image-preview { object-fit: cover; /* 이미지가 꽉 차도록 */ display: none; }
 #webcam-container video { width: 100% !important; height: 100% !important; }
 
-#placeholder-container { color: #9FB0C7; text-align: center; transition: opacity 0.3s ease; }
-#placeholder-icon { width: 40%; height: 40%; max-width: 100px; margin-bottom: 15px; stroke: #c0d1e5; }
+#placeholder-container { color: #AEB8C2; text-align: center; transition: opacity 0.3s ease; }
+#placeholder-icon { width: 35%; height: 35%; max-width: 80px; margin-bottom: 15px; stroke: #D2DCE6; }
 
-#label-container { margin-top: 30px; font-size: 1.8rem; font-weight: bold; color: var(--primary-color); min-height: 50px; text-align: center; }
+/* --- 새로운 결과 UI --- */
+#result-container { margin-top: 30px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.4s ease-in-out; }
+#result-container.active { opacity: 1; visibility: visible; transform: translateY(0); }
+#result-title { text-align: center; font-size: 1.4rem; font-weight: 700; color: var(--dark-blue); margin-bottom: 20px; }
+.result-bar { position: relative; background-color: #E9E9F0; height: 40px; border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
+.result-bar-inner { position: absolute; left: 0; top: 0; height: 100%; border-radius: 10px; display: flex; align-items: center; white-space: nowrap; transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+#dog-result { background: linear-gradient(90deg, #89f7fe, #66a6ff); }
+#cat-result { background: linear-gradient(90deg, #ffdde1, #ee9ca7); }
+.result-label { font-size: 1rem; font-weight: 600; color: var(--white-color); padding-left: 15px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+.result-percent { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-weight: 700; font-size: 1rem; color: var(--dark-blue); }
 
-/* --- Lotto Generator Specifics --- */
-#lotto-numbers-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 30px 0 40px; }
+/* --- 로또 생성기 --- */
+#lotto-numbers-container { margin: 30px 0 40px; }
 
-/* --- General Button Styles --- */
-.btn { display: block; width: 100%; padding: 15px 20px; font-size: 1.1rem; font-weight: bold; border: none; border-radius: var(--border-radius-md); cursor: pointer; background-color: var(--primary-color); color: var(--white-color); text-align: center; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; box-shadow: var(--shadow-soft); }
+/* --- 버튼 스타일 --- */
+.btn { display: block; width: 100%; padding: 14px 20px; font-size: 1.05rem; font-weight: 600; border: none; border-radius: var(--border-radius-md); cursor: pointer; text-align: center; transition: all 0.2s ease; }
 .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-strong); }
-.btn.btn-secondary { background-color: var(--white-color); color: var(--primary-color); border: 2px solid var(--primary-color); margin-top: 10px; }
+.btn.btn-primary { background-color: var(--primary-color); color: var(--white-color); }
+.btn.btn-secondary { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); margin-top: 10px; }
 #generate-button { max-width: 300px; margin: 0 auto; }
 
-/* --- Ad & Responsive Design --- */
-.ad-container { padding: 30px 0; text-align: center; min-height: 100px; }
-@media (max-width: 768px) { .tool-content-grid { grid-template-columns: 1fr; text-align: center; } .tool-controls { order: 2; } .tool-controls p, .tool-controls h3 { text-align: center; } .hero h1 { font-size: 2rem; } }
-@media (max-width: 600px) { .site-header .container { flex-direction: column; } .main-nav { margin-top: 15px; } .main-nav a { margin: 0 10px; } .tab-nav { width: 90%; } .tab-link { padding: 10px 15px; font-size: 0.9rem; } .tool-content-wrapper { padding: 20px; } }
+/* --- 광고 및 반응형 --- */
+.ad-container { padding: 20px 0; text-align: center; min-height: 80px; }
+@media (max-width: 768px) { .tool-content-grid { grid-template-columns: 1fr; } .tool-controls { order: 2; margin-top: 20px;} .tool-controls p, .tool-controls h3 { text-align: center; } .hero h1 { font-size: 2.2rem; } }
+@media (max-width: 600px) { .main-nav { display: none; } .tool-content-wrapper { padding: 20px; } .container { padding: 0 15px; } }
 
-/* --- Form styles for Contact page --- */
-.page-content { padding: 40px 0; }
+/* --- 폼 스타일 --- */
+.page-content { padding: 30px 0; }
 .contact-form { max-width: 600px; margin: 30px auto; padding: 30px; background: var(--white-color); border-radius: var(--border-radius-lg); box-shadow: var(--shadow-strong); text-align: left; }
 .form-group { margin-bottom: 20px; }
 .form-group label { display: block; margin-bottom: 8px; font-weight: bold; }

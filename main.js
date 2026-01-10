@@ -1,71 +1,63 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Modern Tab Navigation --- //
-    const tabs = document.querySelectorAll('.tab-link');
-    const contents = document.querySelectorAll('.tab-content');
+    // --- 탭 메뉴 기능 ---
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // 1. Deactivate all tabs and content panels
-            tabs.forEach(item => item.classList.remove('active'));
-            contents.forEach(item => item.classList.remove('active'));
+    tabLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const tabId = link.dataset.tab;
 
-            // 2. Activate the clicked tab
-            tab.classList.add('active');
+            // 모든 탭 링크와 콘텐츠에서 'active' 클래스를 제거합니다.
+            tabLinks.forEach(item => item.classList.remove('active'));
+            tabContents.forEach(item => item.classList.remove('active'));
 
-            // 3. Activate the corresponding content panel
-            const target = document.getElementById(tab.dataset.tab);
-            if (target) {
-                target.classList.add('active');
-            }
-            
-            // 4. Special handling for Lotto tab to generate numbers on view
-            if (tab.dataset.tab === 'lotto') {
-                // Ensure the lotto number generation function exists and call it
-                if (typeof generateLottoNumbers === 'function') {
-                    generateLottoNumbers();
-                }
-            }
+            // 클릭된 탭 링크와 해당 콘텐츠에 'active' 클래스를 추가합니다.
+            link.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
         });
     });
 
-    // --- Contact Form Submission Handling (from previous step) --- //
+    // --- 문의하기 폼 제출 처리 ---
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (formStatus) {
-                formStatus.textContent = 'Sending message...';
-                formStatus.style.color = '#333';
-            }
-            const formData = new FormData(contactForm);
+            const form = e.target;
+            const data = new FormData(form);
+            
             try {
-                const response = await fetch('https://formspree.io/f/meeejzwo', {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
+                // Formspree 엔드포인트로 비동기 요청을 보냅니다.
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
                 });
+
                 if (response.ok) {
-                    if (formStatus) {
-                        formStatus.textContent = 'Message sent successfully! We will get back to you soon.';
-                        formStatus.style.color = 'green';
-                    }
-                    contactForm.reset();
+                    // 성공 시 메시지를 표시하고 폼을 초기화합니다.
+                    formStatus.textContent = '메시지가 성공적으로 전송되었습니다. 감사합니다!';
+                    formStatus.style.color = 'green';
+                    form.reset();
                 } else {
-                    const data = await response.json();
-                    if (formStatus) {
-                        formStatus.textContent = data.error || 'Oops! There was a problem submitting your form.';
-                        formStatus.style.color = 'red';
+                    // 서버 측 에러 처리
+                    const responseData = await response.json();
+                    if (Object.hasOwn(responseData, 'errors')) {
+                        formStatus.textContent = responseData["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        formStatus.textContent = '메시지 전송에 실패했습니다.';
                     }
-                }
-            } catch (error) {
-                if (formStatus) {
-                    formStatus.textContent = 'Oops! There was a network error. Please try again later.';
                     formStatus.style.color = 'red';
                 }
+            } catch (error) {
+                // 네트워크 에러 등 클라이언트 측 에러 처리
+                formStatus.textContent = '메시지 전송 중 오류가 발생했습니다.';
+                formStatus.style.color = 'red';
             }
         });
     }

@@ -1,11 +1,11 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All-in-One Fun Page - Entertainment & Tools</title>
-    <meta name="description" content="A fun-filled site offering a variety of interactive tools, including an AI-powered animal face reader, a lottery number generator, and more.">
+    <title>올인원 재미 페이지 - 엔터테인먼트 & 도구</title>
+    <meta name="description" content="AI 얼굴상 분석, 로또 번호 생성기 등 다양하고 재미있는 최신 웹 도구를 즐겨보세요.">
     <link rel="stylesheet" href="style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7373862215191052"
      crossorigin="anonymous"></script>
@@ -13,11 +13,11 @@
 <body>
     <header class="site-header">
         <div class="container">
-            <a href="index.html" class="logo">All-in-One Fun</a>
+            <a href="index.html" class="logo">올인원 재미</a>
             <nav class="main-nav">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+                <a href="index.html">홈</a>
+                <a href="about.html">소개</a>
+                <a href="contact.html">문의하기</a>
             </nav>
         </div>
     </header>
@@ -25,73 +25,86 @@
     <main>
         <section class="hero">
             <div class="container">
-                <h1>A Collection of Fun & Useful Tools</h1>
-                <p>Explore our interactive tools, from AI experiments to random generators.</p>
+                <h1>재미있는 최신 도구 모음</h1>
+                <p>AI 기반의 신기한 기능부터 다양한 랜덤 생성기까지, 지금 바로 경험해보세요!</p>
             </div>
         </section>
 
-        <!-- Ad Unit Top -->
+        <!-- 광고 영역 -->
         <div class="ad-container"></div>
 
-        <!-- Tab Navigation -->
+        <!-- 탭 메뉴 -->
         <div class="container">
             <nav class="tab-nav">
-                <button class="tab-link active" data-tab="animal-test">Animal Classifier</button>
-                <button class="tab-link" data-tab="lotto">Lotto Generator</button>
+                <button class="tab-link active" data-tab="animal-test">AI 동물상 테스트</button>
+                <button class="tab-link" data-tab="lotto">로또 번호 생성기</button>
             </nav>
         </div>
 
-        <!-- Main Tool Content -->
+        <!-- 메인 콘텐츠 -->
         <div class="container">
              <div class="tool-content-wrapper">
-                <!-- Animal Classifier Page -->
+                <!-- AI 동물상 테스트 -->
                 <div id="animal-test" class="tab-content active">
                     <div class="tool-content-grid">
                         <div class="tool-controls">
-                            <h3>Which Animal Do You Resemble?</h3>
-                            <p>Use our AI to see if you look more like a cat or a dog. Upload a photo or use your webcam!</p>
-                            <button id="webcam-button" type="button" class="btn">Use Webcam</button>
+                            <h3>어떤 동물과 닮았을까요?</h3>
+                            <p>AI가 여러분의 얼굴을 분석해 강아지상인지, 고양이상인지 알려드립니다. 사진을 올리거나 웹캠을 사용해보세요!</p>
+                            <button id="webcam-button" type="button" class="btn">웹캠 사용하기</button>
                             <input type="file" id="file-upload" accept="image/*" style="display: none;" />
-                            <button id="file-upload-button" type="button" class="btn btn-secondary">Upload Image</button>
+                            <button id="file-upload-button" type="button" class="btn btn-secondary">이미지 업로드</button>
                         </div>
                         <div id="interactive-container">
                             <div id="placeholder-container">
                                 <svg id="placeholder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M1.5 21.5a2.5 2.5 0 0 1 2-2.45c2.27-.55 4.53-1.05 6.75-1.05s4.48.5 6.75 1.05A2.5 2.5 0 0 1 19.5 21.5"/>
-                                    <path d="M19.12 9.42a4.5 4.5 0 1 1-5.6-5.6"/>
-                                    <path d="M20.44 14.88a2.5 2.5 0 0 1 2.06 2.57c-.2 1.95-1.26 3.8-2.5 5.05"/>
-                                    <path d="M3.56 14.88a2.5 2.5 0 0 0-2.06 2.57c.2 1.95 1.26 3.8 2.5 5.05"/>
+                                    <path d="M19.12 9.42a4.5 4.5 0 1 1-5.6-5.6"/><path d="M20.44 14.88a2.5 2.5 0 0 1 2.06 2.57c-.2 1.95-1.26 3.8-2.5 5.05"/><path d="M3.56 14.88a2.5 2.5 0 0 0-2.06 2.57c.2 1.95 1.26 3.8 2.5 5.05"/>
                                 </svg>
-                                <p>Your image will appear here</p>
+                                <p>이곳에 이미지가 표시됩니다</p>
                             </div>
                             <div id="webcam-container"></div>
-                            <img id="image-preview" src="" alt="Image Preview"/>
+                            <img id="image-preview" alt="업로드된 이미지 미리보기"/>
                         </div>
                     </div>
-                    <div id="label-container"></div>
+                    <!-- 새로운 결과 표시 UI -->
+                    <div id="result-container">
+                        <h3 id="result-title">분석 결과가 여기에 표시됩니다.</h3>
+                        <div class="result-bar">
+                            <div id="dog-result" class="result-bar-inner">
+                                <span class="result-label">🐶 강아지상</span>
+                            </div>
+                            <span id="dog-percent" class="result-percent"></span>
+                        </div>
+                        <div class="result-bar">
+                            <div id="cat-result" class="result-bar-inner">
+                                <span class="result-label">🐱 고양이상</span>
+                            </div>
+                            <span id="cat-percent" class="result-percent"></span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Lotto Generator Page -->
+                <!-- 로또 번호 생성기 -->
                 <div id="lotto" class="tab-content">
-                    <h2>Lotto Number Generator</h2>
-                    <p>Get a random set of numbers for your next lottery draw.</p>
+                    <h2>로또 번호 생성기</h2>
+                    <p>버튼을 눌러 당신의 행운 번호 6개를 받아보세요.</p>
                     <div id="lotto-numbers-container"></div>
-                    <button id="generate-button" class="btn">Generate Numbers</button>
+                    <button id="generate-button" class="btn">번호 생성하기</button>
                 </div>
             </div>
         </div>
 
-        <!-- Ad Unit Bottom -->
+        <!-- 광고 영역 -->
         <div class="ad-container"></div>
     </main>
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2024 All-in-One Fun Page. All Rights Reserved.</p>
+            <p>&copy; 2024 올인원 재미 페이지. 모든 권리 보유.</p>
             <nav class="footer-nav">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+                <a href="privacy.html">개인정보처리방침</a>
+                <a href="about.html">소개</a>
+                <a href="contact.html">문의하기</a>
             </nav>
         </div>
     </footer>
