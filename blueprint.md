@@ -1,22 +1,21 @@
 
-# Lotto Number Generator
+# Lotto Number Generator & Partnership Inquiry
 
 ## Overview
 
-This project is a visually appealing lottery number generator that also includes a contact form. Users can generate random lottery numbers and send messages via the contact form. The application is built with a focus on modern web technologies, a clean UI, and a component-based architecture using Web Components.
+This project is a multi-functional web application. It features a visually appealing lottery number generator and a detailed partnership inquiry form. The application is built with a focus on modern web technologies, a clean UI, and a component-based architecture using Web Components.
 
 ## Design and Features
 
-*   **UI/UX:** The application features a clean and modern design with a "glassmorphism" effect. It is responsive and includes interactive elements.
-*   **Dark/Light Mode:** A theme switcher allows users to toggle between a light and dark theme, with the user's preference saved in local storage.
-*   **Lottery Number Generation:** Generates 6 unique random numbers between 1 and 45 with a button click.
-*   **Web Components:** A custom element (`lotto-ball`) is used for displaying lottery numbers.
-*   **Contact Form:** A Formspree-powered contact form allows users to send messages. The form is styled to match the application's theme.
-*   **Animation:** Generated numbers and UI elements have subtle animations for a better user experience.
+*   **UI/UX:** A clean, modern design with a "glassmorphism" effect. The application is responsive and includes interactive elements with subtle animations.
+*   **Dark/Light Mode:** A theme switcher allows users to toggle between light and dark themes, with the preference saved locally.
+*   **Lottery Number Generation:** Generates 6 unique random numbers between 1 and 45.
+*   **Web Components:** The `lotto-ball` custom element is used for displaying lottery numbers in a modular way.
+*   **Partnership Inquiry Form:** A Formspree-powered form for partnership inquiries. It includes fields for name, company name, email, inquiry type (dropdown), and a message.
 
 ## Current Plan
 
-*   **Objective:** Add a Formspree-powered contact form to the application.
+*   **Objective:** Modify the existing contact form into a more detailed "Partnership Inquiry" form.
 *   **Steps:**
-    1.  **Update `index.html`:** Add the HTML structure for the contact form below the lottery generator.
-    2.  **Update `style.css`:** Add CSS styles for the contact form to ensure it matches the overall design, including styles for input fields, labels, and the submit button. Adjust the main layout to accommodate the new section.
+    1.  **Update `index.html`:** Change the form title to "Partnership Inquiry." Add new fields for "Company Name" and a dropdown for "Inquiry Type." Update the submit button text.
+    2.  **Update `style.css`:** Add styling for the new `select` (dropdown) element to ensure it is consistent with the other input fields in both light and dark modes.

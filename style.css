@@ -165,7 +165,8 @@ body.dark-mode .form-group label {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
     width: 100%;
     padding: 12px;
     border-radius: 8px;
@@ -177,14 +178,16 @@ body.dark-mode .form-group label {
 }
 
 body.dark-mode .form-group input,
-body.dark-mode .form-group textarea {
+body.dark-mode .form-group textarea,
+body.dark-mode .form-group select {
     background-color: #333;
     border-color: #555;
     color: #f0f2f5;
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
     border-color: #4a90e2;
     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3);
