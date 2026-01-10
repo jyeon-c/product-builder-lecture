@@ -1,37 +1,37 @@
 
 /* --- CSS 변수 및 기본 스타일 --- */
 :root {
-    --primary-color: #5D5FEF; /* 더 활기찬 보라색 계열 */
-    --secondary-color: #2ED573; /* 생생한 녹색 */
-    --accent-color: #FFC312; /* 밝은 노란색 */
+    --primary-color: #5D5FEF;
+    --secondary-color: #2ED573;
+    --accent-color: #FFC312;
     --dark-blue: #2C3A47;
     --light-gray: #F7F8FA;
     --text-color: #4b4b4b;
     --white-color: #fff;
-    --border-radius-md: 12px; /* 좀 더 부드러운 곡선 */
+    --border-radius-md: 12px;
     --border-radius-lg: 20px;
     --shadow-soft: 0 6px 15px rgba(0, 0, 0, 0.07);
     --shadow-strong: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; background-color: var(--light-gray); color: var(--text-color); line-height: 1.7; -webkit-font-smoothing: antialiased; }
-.container { max-width: 900px; /* 콘텐츠 최대 너비 조정 */ margin: 0 auto; padding: 0 20px; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
 
 /* --- 헤더 및 푸터 --- */
-.site-header, .site-footer { background-color: var(--white-color); padding: 18px 0; box-shadow: none; border-bottom: 1px solid #EAECEF; }
+.site-header, .site-footer { background-color: var(--white-color); padding: 18px 0; border-bottom: 1px solid #EAECEF; }
 .site-header .container, .site-footer .container { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-size: 1.6rem; font-weight: 800; /* 폰트 굵게 */ color: var(--primary-color); text-decoration: none; }
+.logo { font-size: 1.6rem; font-weight: 800; color: var(--primary-color); text-decoration: none; }
 .main-nav a, .footer-nav a { color: var(--dark-blue); text-decoration: none; margin: 0 15px; font-weight: 600; transition: color 0.3s ease; font-size: 1rem; }
 .main-nav a:hover, .footer-nav a:hover { color: var(--primary-color); }
-.site-footer { margin-top: 50px; border-top: 1px solid #EAECEF; border-bottom: none; font-size: 0.9rem; padding: 25px 0; }
+.site-footer { margin-top: 50px; border-top: 1px solid #EAECEF; font-size: 0.9rem; padding: 25px 0; }
 
 /* --- 히어로 섹션 --- */
-.hero { background: var(--white-color); text-align: center; padding: 40px 0 20px; /* 여백 조정 */ }
+.hero { background: var(--white-color); text-align: center; padding: 40px 0 20px; }
 .hero h1 { font-size: 2.8rem; margin: 0 0 15px; color: var(--dark-blue); font-weight: 800; }
 .hero p { font-size: 1.2rem; color: #6c7a89; }
 
 /* --- 탭 메뉴 --- */
-.tab-nav { display: flex; justify-content: center; background: #E9E9F0; padding: 6px; border-radius: var(--border-radius-md); margin: 0 auto 30px; width: fit-content; position: relative; z-index: 2; }
+.tab-nav { display: flex; justify-content: center; background: #E9E9F0; padding: 6px; border-radius: var(--border-radius-md); margin: 0 auto 30px; width: fit-content; }
 .tab-link { padding: 10px 22px; border: none; background: transparent; cursor: pointer; font-size: 1rem; color: var(--dark-blue); font-weight: 600; border-radius: 9px; transition: all 0.3s ease; }
 .tab-link.active { background-color: var(--white-color); color: var(--primary-color); box-shadow: 0 3px 10px rgba(0,0,0,0.1); transform: scale(1.05); }
 
@@ -39,36 +39,39 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI",
 .tool-content-wrapper { background: var(--white-color); padding: 35px; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-soft); }
 .tab-content { display: none; } .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
 .tool-content-wrapper h2 { font-size: 2rem; color: var(--dark-blue); margin-bottom: 10px; text-align: center; font-weight: 700; }
 .tool-content-wrapper p { max-width: 550px; margin: 0 auto 30px; font-size: 1.1rem; color: #6c7a89; text-align: center; }
 
 /* --- 동물상 테스트 --- */
 .tool-content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; text-align: left; }
-.tool-controls h3 { font-size: 1.6rem; margin-top: 0; margin-bottom: 15px; color: var(--dark-blue); font-weight: 700; }
+.tool-controls h3 { font-size: 1.6rem; margin-bottom: 15px; color: var(--dark-blue); font-weight: 700; }
 .tool-controls p { text-align: left; margin-bottom: 25px; font-size: 1rem; }
 
 #interactive-container { width: 100%; padding-top: 100%; position: relative; border-radius: var(--border-radius-md); overflow: hidden; background: #F0F2F5; box-shadow: inset 0 2px 4px rgba(0,0,0,0.04); }
 #webcam-container, #image-preview, #placeholder-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-#image-preview { object-fit: cover; /* 이미지가 꽉 차도록 */ display: none; }
-#webcam-container video { width: 100% !important; height: 100% !important; }
+#image-preview { object-fit: cover; display: none; }
 
 #placeholder-container { color: #AEB8C2; text-align: center; transition: opacity 0.3s ease; }
 #placeholder-icon { width: 35%; height: 35%; max-width: 80px; margin-bottom: 15px; stroke: #D2DCE6; }
 
-/* --- 새로운 결과 UI --- */
+/* --- 로딩 스피너 --- */
+.loader { width: 48px; height: 48px; border: 5px solid #FFF; border-bottom-color: var(--primary-color); border-radius: 50%; display: none; /* 기본 숨김 */ box-sizing: border-box; animation: rotation 1s linear infinite; position: absolute; z-index: 10; }
+@keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* --- 결과 UI --- */
 #result-container { margin-top: 30px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.4s ease-in-out; }
 #result-container.active { opacity: 1; visibility: visible; transform: translateY(0); }
-#result-title { text-align: center; font-size: 1.4rem; font-weight: 700; color: var(--dark-blue); margin-bottom: 20px; }
+#result-title { text-align: center; font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; }
 .result-bar { position: relative; background-color: #E9E9F0; height: 40px; border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
 .result-bar-inner { position: absolute; left: 0; top: 0; height: 100%; border-radius: 10px; display: flex; align-items: center; white-space: nowrap; transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-#dog-result { background: linear-gradient(90deg, #89f7fe, #66a6ff); }
-#cat-result { background: linear-gradient(90deg, #ffdde1, #ee9ca7); }
-.result-label { font-size: 1rem; font-weight: 600; color: var(--white-color); padding-left: 15px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
-.result-percent { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-weight: 700; font-size: 1rem; color: var(--dark-blue); }
+#dog-result { background: linear-gradient(90deg, #89f7fe, #66a6ff); color: #fff; }
+#cat-result { background: linear-gradient(90deg, #ffdde1, #ee9ca7); color: #fff; }
+.result-label { font-size: 1rem; font-weight: 600; padding-left: 15px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+.result-percent { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--dark-blue); }
 
 /* --- 로또 생성기 --- */
-#lotto-numbers-container { margin: 30px 0 40px; }
+#lotto-numbers-container { margin: 30px 0 40px; display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; }
+.lotto-ball { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; font-weight: 700; color: white; box-shadow: inset -3px -3px 5px rgba(0,0,0,0.2), 2px 2px 8px rgba(0,0,0,0.3); }
 
 /* --- 버튼 스타일 --- */
 .btn { display: block; width: 100%; padding: 14px 20px; font-size: 1.05rem; font-weight: 600; border: none; border-radius: var(--border-radius-md); cursor: pointer; text-align: center; transition: all 0.2s ease; }
@@ -77,7 +80,7 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI",
 .btn.btn-secondary { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); margin-top: 10px; }
 #generate-button { max-width: 300px; margin: 0 auto; }
 
-/* --- 광고 및 반응형 --- */
+/* --- 반응형 및 기타 --- */
 .ad-container { padding: 20px 0; text-align: center; min-height: 80px; }
 @media (max-width: 768px) { .tool-content-grid { grid-template-columns: 1fr; } .tool-controls { order: 2; margin-top: 20px;} .tool-controls p, .tool-controls h3 { text-align: center; } .hero h1 { font-size: 2.2rem; } }
 @media (max-width: 600px) { .main-nav { display: none; } .tool-content-wrapper { padding: 20px; } .container { padding: 0 15px; } }

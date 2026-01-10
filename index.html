@@ -55,6 +55,7 @@
                             <button id="file-upload-button" type="button" class="btn btn-secondary">이미지 업로드</button>
                         </div>
                         <div id="interactive-container">
+                            <div class="loader"></div> <!-- 로딩 스피너 -->
                             <div id="placeholder-container">
                                 <svg id="placeholder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M1.5 21.5a2.5 2.5 0 0 1 2-2.45c2.27-.55 4.53-1.05 6.75-1.05s4.48.5 6.75 1.05A2.5 2.5 0 0 1 19.5 21.5"/>
@@ -66,7 +67,6 @@
                             <img id="image-preview" alt="업로드된 이미지 미리보기"/>
                         </div>
                     </div>
-                    <!-- 새로운 결과 표시 UI -->
                     <div id="result-container">
                         <h3 id="result-title">분석 결과가 여기에 표시됩니다.</h3>
                         <div class="result-bar">
