@@ -8,14 +8,15 @@ This project is a simple, visually appealing lottery number generator. It allows
 ## Design and Features
 
 *   **UI/UX:** The application features a clean and modern design with a "glassmorphism" effect for the main container. It's responsive and includes interactive elements like a button with a subtle glow effect.
+*   **Dark/Light Mode:** A theme switcher allows users to toggle between a light and dark theme. The application also respects the user's operating system preference for the initial theme.
 *   **Lottery Number Generation:** The core feature is the ability to generate 6 unique random numbers between 1 and 45.
 *   **Web Components:** The lottery number display is encapsulated in a custom element (`lotto-ball`) for reusability and maintainability.
 *   **Animation:** The generated numbers fade in for a smoother user experience.
 
 ## Current Plan
 
-*   **Objective:** Transform the initial "Hello World" page into a fully functional and styled lottery number generator.
+*   **Objective:** Add a dark/light mode theme switcher to the application.
 *   **Steps:**
-    1.  **Update `index.html`:** Set up the basic structure for the lottery generator, including a title, a container for the numbers, and a "Generate" button.
-    2.  **Update `style.css`:** Apply a modern and visually appealing style to the page, including a background texture, a "glassmorphism" container, and styles for the lottery balls and button.
-    3.  **Update `main.js`:** Implement the logic for generating the lottery numbers and create a custom element (`<lotto-ball>`) to display each number in a styled ball.
+    1.  **Update `index.html`:** Add a toggle switch for the theme switcher.
+    2.  **Update `style.css`:** Add styles for the theme switcher and define the color scheme for the dark mode.
+    3.  **Update `main.js`:** Implement the logic to toggle the `dark-mode` class on the body, save the user's preference in local storage, and check for the system's preferred color scheme.

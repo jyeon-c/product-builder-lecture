@@ -64,4 +64,23 @@ const generateLottoNumbers = () => {
 
 document.getElementById('generate-button').addEventListener('click', generateLottoNumbers);
 
+// Theme switcher logic
+const themeSwitch = document.getElementById('checkbox');
+const body = document.body;
+
+themeSwitch.addEventListener('change', () => {
+    body.classList.toggle('dark-mode');
+    // Save theme preference
+    localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+});
+
+// Check for saved theme preference or system preference
+const savedTheme = localStorage.getItem('theme');
+const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    body.classList.add('dark-mode');
+    themeSwitch.checked = true;
+}
+
 generateLottoNumbers();
