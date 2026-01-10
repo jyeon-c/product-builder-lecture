@@ -1,6 +1,8 @@
 
+// --- 전역 변수 및 상수 --- 
 const URL = "https://teachablemachine.withgoogle.com/models/bJgScNCef/";
 let model, webcam, maxPredictions;
+let isPredicting = false;
 
 // --- DOM 요소 --- 
 const webcamButton = document.getElementById("webcam-button");
@@ -13,33 +15,47 @@ const resultContainer = document.getElementById("result-container");
 const resultTitle = document.getElementById("result-title");
 const loader = document.querySelector(".loader");
 
-// --- 이벤트 리스너 --- 
-webcamButton.addEventListener('click', toggleWebcam);
-fileUploadButton.addEventListener('click', () => fileUpload.click());
-fileUpload.addEventListener('change', handleFileUpload);
+// --- 초기화 --- 
+document.addEventListener('DOMContentLoaded', init);
 
-// --- UI 상태 제어 함수 --- 
+async function init() {
+    // 이벤트 리스너 설정
+    webcamButton.addEventListener('click', toggleWebcam);
+    fileUploadButton.addEventListener('click', () => fileUpload.click());
+    fileUpload.addEventListener('change', handleFileUpload);
+    
+    // 이미지 미리보기 로드 완료 시 예측 (파일 업로드용)
+    imagePreview.addEventListener('load', async () => {
+        if (imagePreview.src && imagePreview.src !== '#') {
+            await predict(imagePreview);
+            showLoader(false);
+        }
+    });
+    
+    // 시작 시 모델 미리 로드
+    await setupModel();
+}
+
+// --- UI 제어 함수 ---
 function showLoader(show) {
     loader.style.display = show ? 'block' : 'none';
 }
 
 function resetUI() {
-    showPlaceholder(true);
-    showImagePreview(false);
+    if (webcam && webcam.running) {
+        stopWebcam();
+    }
     webcamContainer.innerHTML = '';
+    imagePreview.style.display = 'none';
+    imagePreview.src = '#'; 
+    placeholder.style.display = 'flex';
     resultContainer.classList.remove('active');
     webcamButton.textContent = '웹캠 사용하기';
-    fileUpload.value = ''; // 파일 선택 초기화
+    fileUpload.value = ''; 
+    isPredicting = false;
 }
 
-function showImagePreview(show, src = '#') {
-    imagePreview.style.display = show ? 'block' : 'none';
-    if (show) {
-        imagePreview.src = src;
-    }
-}
-
-// --- 핵심 로직: 모델 로딩 --- 
+// --- 핵심 로직 --- 
 async function setupModel() {
     if (model) return;
     showLoader(true);
@@ -50,14 +66,13 @@ async function setupModel() {
         maxPredictions = model.getTotalClasses();
     } catch (error) {
         console.error("모델 로딩 실패:", error);
-        // 사용자에게 모델 로딩 실패를 알리는 UI 처리 (예: 경고 메시지)
     } finally {
         showLoader(false);
     }
 }
 
-// --- 핵심 로직: 웹캠 --- 
 async function toggleWebcam() {
+    if (isPredicting) return;
     if (webcam && webcam.running) {
         await stopWebcam();
         return;
@@ -65,23 +80,22 @@ async function toggleWebcam() {
 
     resetUI();
     showLoader(true);
-    showPlaceholder(false);
+    placeholder.style.display = 'none';
+    isPredicting = true;
 
     try {
         await setupModel();
         const flip = true;
         webcam = new tmImage.Webcam(300, 300, flip);
-        await webcam.setup(); 
+        await webcam.setup();
         await webcam.play();
-        window.requestAnimationFrame(loop);
-
         webcamContainer.appendChild(webcam.canvas);
         webcamButton.textContent = '웹캠 끄기';
+        showLoader(false);
+        window.requestAnimationFrame(loop);
     } catch (error) {
         console.error("웹캠 초기화 오류:", error);
-        await stopWebcam();
-    } finally {
-        showLoader(false);
+        await stopWebcam(); // 오류 시 정리
     }
 }
 
@@ -93,66 +107,56 @@ async function stopWebcam() {
     resetUI();
 }
 
-async function loop() {
-    if (webcam && webcam.running) {
-        webcam.update();
-        await predict(webcam.canvas);
-        window.requestAnimationFrame(loop);
-    }
-}
-
-// --- 핵심 로직: 파일 업로드 --- 
 async function handleFileUpload(event) {
     const file = event.target.files && event.target.files[0];
-    if (!file) return;
+    if (!file || isPredicting) return;
 
-    await stopWebcam();
-    resetUI();
+    resetUI(); 
     showLoader(true);
-    showPlaceholder(false);
+    placeholder.style.display = 'none';
+    isPredicting = true;
+    
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        // 'load' 이벤트 리스너가 예측을 처리하므로 여기서는 src만 설정
+        imagePreview.src = e.target.result;
+        imagePreview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+}
 
-    try {
-        await setupModel();
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-            showImagePreview(true, e.target.result);
-            // 이미지 렌더링 후 예측 실행
-            setTimeout(async () => {
-                await predict(imagePreview);
-                showLoader(false);
-            }, 100);
-        };
-        reader.readAsDataURL(file);
-    } catch (error) {
-        console.error("파일 처리 오류:", error);
-        showLoader(false);
-        resetUI();
+async function loop() {
+    if (webcam && webcam.running) {
+        await predict(webcam.canvas);
+        window.requestAnimationFrame(loop);
+    } else {
+        isPredicting = false;
     }
 }
 
-// --- 핵심 로직: 예측 --- 
 async function predict(imageElement) {
     if (!model) {
         console.error("모델이 로드되지 않았습니다.");
+        isPredicting = false;
         return;
     }
-
     const prediction = await model.predict(imageElement, false);
+    updateResultUI(prediction);
     
+    // 파일 업로드의 경우, 예측 한 번만 실행
+    if (imageElement.tagName === 'IMG') {
+        isPredicting = false;
+    }
+}
+
+function updateResultUI(prediction) {
     const dogPrediction = prediction.find(p => p.className === "Dog");
     const catPrediction = prediction.find(p => p.className === "Cat");
 
-    // 예외 처리: 예측 클래스를 찾지 못한 경우
-    if (!dogPrediction || !catPrediction) {
-        console.error("예측에서 'Dog' 또는 'Cat' 클래스를 찾을 수 없습니다.", prediction);
-        return;
-    }
+    if (!dogPrediction || !catPrediction) return;
 
-    updateResultUI(dogPrediction.probability, catPrediction.probability);
-}
-
-// --- 핵심 로직: 결과 UI 업데이트 --- 
-function updateResultUI(dogProb, catProb) {
+    const dogProb = dogPrediction.probability;
+    const catProb = catPrediction.probability;
     const dogPercent = (dogProb * 100).toFixed(1);
     const catPercent = (catProb * 100).toFixed(1);
 
@@ -160,14 +164,12 @@ function updateResultUI(dogProb, catProb) {
     document.getElementById('cat-result').style.width = catPercent + '%';
     document.getElementById('dog-percent').textContent = dogPercent + '%';
     document.getElementById('cat-percent').textContent = catPercent + '%';
-    
-    if (dogProb > catProb) {
-        resultTitle.textContent = "분석 결과: 당신은 강아지상에 가깝습니다!";
-    } else if (catProb > dogProb) {
-        resultTitle.textContent = "분석 결과: 당신은 고양이상에 가깝습니다!";
-    } else {
-        resultTitle.textContent = "분석 결과: 강아지상과 고양이상의 특징이 모두 있네요!";
-    }
+
+    resultTitle.textContent = dogProb > catProb 
+        ? "분석 결과: 당신은 강아지상에 가깝습니다!"
+        : catProb > dogProb 
+            ? "분석 결과: 당신은 고양이상에 가깝습니다!"
+            : "분석 결과: 강아지상과 고양이상의 특징이 모두 있네요!";
 
     resultContainer.classList.add('active');
 }
