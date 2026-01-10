@@ -1,6 +1,7 @@
 
 // --- 전역 변수 및 상수 ---
-const URL = "https://teachablemachine.withgoogle.com/models/bJgScNCef/";
+// 새롭고 안정적인 공개 모델 URL로 교체
+const URL = "https://teachablemachine.withgoogle.com/models/vuE9sOY19/"; 
 let model, webcam, maxPredictions;
 
 // --- DOM 요소 ---
@@ -125,7 +126,6 @@ async function predict(imageElement) {
 }
 
 function updateResultUI(prediction) {
-    // 대소문자 구분 없이 클래스 찾기
     const dogPrediction = prediction.find(p => p.className.toLowerCase() === "dog");
     const catPrediction = prediction.find(p => p.className.toLowerCase() === "cat");
 
