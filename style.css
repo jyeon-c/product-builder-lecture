@@ -142,8 +142,9 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-/* Contact Form Styles */
-.contact-form-container {
+/* Contact Form & Disqus Styles */
+.contact-form-container,
+#disqus_thread {
     margin-top: 40px;
 }
 

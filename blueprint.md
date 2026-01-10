@@ -3,7 +3,7 @@
 
 ## Overview
 
-This project is a multi-functional web application. It features a visually appealing lottery number generator and a detailed partnership inquiry form. The application is built with a focus on modern web technologies, a clean UI, and a component-based architecture using Web Components.
+This project is a multi-functional web application. It features a visually appealing lottery number generator, a detailed partnership inquiry form, and a Disqus-powered comment section. The application is built with a focus on modern web technologies, a clean UI, and a component-based architecture using Web Components.
 
 ## Design and Features
 
@@ -12,10 +12,11 @@ This project is a multi-functional web application. It features a visually appea
 *   **Lottery Number Generation:** Generates 6 unique random numbers between 1 and 45.
 *   **Web Components:** The `lotto-ball` custom element is used for displaying lottery numbers in a modular way.
 *   **Partnership Inquiry Form:** A Formspree-powered form for partnership inquiries. It includes fields for name, company name, email, inquiry type (dropdown), and a message.
+*   **Disqus Comments:** A comment section powered by Disqus is integrated at the bottom of the page, allowing for community interaction.
 
 ## Current Plan
 
-*   **Objective:** Modify the existing contact form into a more detailed "Partnership Inquiry" form.
+*   **Objective:** Implement a Disqus comment section below the partnership inquiry form.
 *   **Steps:**
-    1.  **Update `index.html`:** Change the form title to "Partnership Inquiry." Add new fields for "Company Name" and a dropdown for "Inquiry Type." Update the submit button text.
-    2.  **Update `style.css`:** Add styling for the new `select` (dropdown) element to ensure it is consistent with the other input fields in both light and dark modes.
+    1.  **Update `index.html`:** Add a new container with the `id="disqus_thread"` below the form. Embed the Disqus universal embed code, making sure to include a placeholder for the user's Disqus shortname.
+    2.  **Update `style.css`:** Add a `margin-top` to the `#disqus_thread` container to ensure consistent spacing with the other elements on the page.
