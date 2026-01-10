@@ -1,57 +1,54 @@
 
-// Teachable Machine model URL
-const URL = "https://teachablemachine.withgoogle.com/models/xQ-P0uqTP/";
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-link');
+    const contents = document.querySelectorAll('.tab-content');
 
-let model, webcam, labelContainer, maxPredictions;
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Deactivate all tabs and content
+            tabs.forEach(item => item.classList.remove('active'));
+            contents.forEach(item => item.classList.remove('active'));
 
-const startButton = document.getElementById("start-button");
-startButton.addEventListener("click", () => init());
+            // Activate the clicked tab and its content
+            tab.classList.add('active');
+            const target = document.getElementById(tab.dataset.tab);
+            if (target) {
+                target.classList.add('active');
+            }
+            
+            // Special handling for comments tab
+            if (tab.dataset.tab === 'comments') {
+                loadDisqus();
+            }
+        });
+    });
 
-// Load the image model and setup the webcam
-async function init() {
-    startButton.textContent = "Loading model...";
-    startButton.disabled = true;
+    // Initial setup for lotto if it's the default active tab
+    if (document.getElementById('lotto').classList.contains('active')){
+        if(typeof generateLottoNumbers === "function") generateLottoNumbers();
+    } 
+    // Initial setup for Animal Classifier if it's the default active tab
+    else if(document.getElementById('animal-test').classList.contains('active')){
+        // The animal-classifier.js handles its own initialization based on user clicks
+    }
+});
 
-    const modelURL = URL + "model.json";
-    const metadataURL = URL + "metadata.json";
+let disqus_loaded = false;
+function loadDisqus() {
+    if (disqus_loaded) {
+        return;
+    }
+    disqus_loaded = true;
 
-    // Load the model and metadata
-    model = await tmImage.load(modelURL, metadataURL);
-    maxPredictions = model.getTotalClasses();
-
-    // Setup webcam
-    const flip = true; // Whether to flip the webcam
-    webcam = new tmImage.Webcam(400, 400, flip); // width, height, flip
-    await webcam.setup(); // request access to the webcam
-    await webcam.play();
-    window.requestAnimationFrame(loop);
-
-    // Append webcam element to the container
-    document.getElementById("webcam-container").innerHTML = '';
-    document.getElementById("webcam-container").appendChild(webcam.canvas);
+    var disqus_config = function () {
+        this.page.url = window.location.href;  
+        this.page.identifier = "all-in-one-fun-page-1"; 
+    };
     
-    // Create label container
-    labelContainer = document.getElementById("label-container");
-    for (let i = 0; i < maxPredictions; i++) { // and class labels
-        labelContainer.appendChild(document.createElement("div"));
-    }
-
-    startButton.style.display = 'none'; // Hide button after start
-}
-
-async function loop() {
-    webcam.update(); // update the webcam frame
-    await predict();
-    window.requestAnimationFrame(loop);
-}
-
-// run the webcam image through the image model
-async function predict() {
-    // predict can take in an image, video or canvas html element
-    const prediction = await model.predict(webcam.canvas);
-    for (let i = 0; i < maxPredictions; i++) {
-        const classPrediction =
-            prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(1) + "%";
-        labelContainer.childNodes[i].innerHTML = classPrediction;
-    }
+    (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = 'https://product-builder-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
 }

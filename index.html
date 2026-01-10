@@ -4,19 +4,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Which Animal Do I Look Like?</title>
+    <title>All-in-One Fun Page</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Which Animal Do I Look Like?</h1>
-        <p>Are you a dog person or a cat person? Let's find out!</p>
-        <div id="webcam-container"></div>
-        <div id="label-container"></div>
-        <button id="start-button" type="button">Start</button>
-    </div>
+    <nav class="tab-nav">
+        <button class="tab-link active" data-tab="animal-test">Animal Classifier</button>
+        <button class="tab-link" data-tab="lotto">Lotto Generator</button>
+        <button class="tab-link" data-tab="comments">Comments</button>
+    </nav>
+
+    <main>
+        <!-- Animal Classifier Page -->
+        <div id="animal-test" class="tab-content active">
+            <div class="container">
+                <h1>Which Animal Do I Look Like?</h1>
+                <p>Use your webcam or upload a photo to see if you're a dog or cat person!</p>
+                <div id="input-options">
+                    <button id="webcam-button" type="button">Use Webcam</button>
+                    <input type="file" id="file-upload" accept="image/*" style="display: none;" />
+                    <button id="file-upload-button" type="button">Upload Image</button>
+                </div>
+                <div id="interactive-container">
+                    <div id="webcam-container"></div>
+                    <img id="image-preview" src="" alt="Image Preview"/>
+                </div>
+                <div id="label-container"></div>
+            </div>
+        </div>
+
+        <!-- Lotto Generator Page -->
+        <div id="lotto" class="tab-content">
+             <div class="container">
+                <h1>Lotto Number Generator</h1>
+                <div id="lotto-numbers-container"></div>
+                <button id="generate-button">Generate Numbers</button>
+            </div>
+        </div>
+
+        <!-- Comments Page -->
+        <div id="comments" class="tab-content">
+            <div class="container contact-form-container">
+                <h2>Partnership Inquiry</h2>
+                <form id="contact-form" action="https://formspree.io/f/meeejzwo" method="POST">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiry-type">Inquiry Type</label>
+                        <select id="inquiry-type" name="inquiry-type">
+                            <option>General Inquiry</option>
+                            <option>Technical Partnership</option>
+                            <option>Marketing Partnership</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Partnership Proposal</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Submit Inquiry</button>
+                </form>
+            </div>
+            <div class="container" id="disqus_thread"></div>
+        </div>
+    </main>
+
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script src="animal-classifier.js"></script>
+    <script src="lotto.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

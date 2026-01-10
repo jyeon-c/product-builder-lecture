@@ -1,28 +1,41 @@
 
-# AI Animal Face Classifier
+# All-in-One Fun Page
 
 ## Overview
 
-This web application uses a pre-trained Teachable Machine model to classify a user's face from a live webcam feed, determining whether they resemble a "dog person" or a "cat person" in real-time. The project is built with plain HTML, CSS, and JavaScript, leveraging TensorFlow.js for in-browser machine learning.
+This is a multi-purpose web application that consolidates several mini-apps into a single, tab-based interface. Users can switch between an AI Animal Classifier, a Lotto Number Generator, and a Comments/Inquiry section. The project is built with modern, framework-less web technologies (HTML, CSS, JavaScript) for a lightweight and fast user experience.
 
 ## Core Features
 
-*   **Real-time Webcam Classification:** Uses the webcam to capture video feed continuously.
-*   **Teachable Machine Integration:** Loads a custom image classification model trained to distinguish between "dog-like" and "cat-like" faces.
-*   **Live Predictions:** Displays the probability scores for each class (Dog vs. Cat) dynamically on the screen.
-*   **Simple User Interface:** A clean, modern, and user-friendly interface that is easy to understand and operate. The user clicks a single "Start" button to begin the experience.
+### 1. Tabbed Navigation
+*   A clean, intuitive navigation bar allows users to switch between the three main features.
+*   The active tab is highlighted, and only the content for the active feature is displayed.
+
+### 2. AI Animal Classifier
+*   **Dual Input Methods:** Users can choose to either use their live webcam feed or upload an image file (e.g., JPEG, PNG).
+*   **Real-time & Static Analysis:** The app provides real-time classification for the webcam stream and a one-time classification for uploaded images.
+*   **Teachable Machine Integration:** Utilizes a pre-trained TensorFlow.js model from Teachable Machine to classify faces as "dog-like" or "cat-like".
+
+### 3. Lotto Number Generator
+*   **One-Click Generation:** Creates a set of 6 unique lottery numbers (from 1 to 45) with a single button click.
+*   **Visual Representation:** Displays the generated numbers inside colorful, styled "lotto ball" components for a visually appealing result.
+
+### 4. Comments & Inquiry
+*   **Disqus Integration:** Features a fully functional Disqus comment section for user discussion and feedback.
+*   **Partnership Form:** Includes a professional contact form for partnership inquiries, linked to Formspree for backend processing.
 
 ## Technical Stack
 
 *   **Frontend:** HTML5, CSS3, JavaScript (ES6+)
-*   **Machine Learning:**
-    *   **TensorFlow.js:** For running the model in the browser.
-    *   **Teachable Machine Image Library:** A high-level library that simplifies the process of using image classification models created on the Teachable Machine platform.
-*   **Model URL:** `https://teachablemachine.withgoogle.com/models/xQ-P0uqTP/`
+*   **Machine Learning:** TensorFlow.js, Teachable Machine Image Library
+*   **Comments:** Disqus Platform
+*   **Forms:** Formspree.io
 
 ## Project Structure
 
-*   `index.html`: The main entry point of the application. Contains the structure for the webcam view, label container, and start button.
-*   `style.css`: Provides the styling for the application, creating a modern and responsive layout.
-*   `main.js`: Contains the core JavaScript logic for loading the model, setting up the webcam, and running the prediction loop.
-*   `blueprint.md`: This file, serving as the project's single source of truth.
+*   `index.html`: The main HTML file containing the tab navigation and content containers for all features.
+*   `style.css`: A single stylesheet providing styles for all components, including the tab layout, classifier interface, lotto balls, and forms.
+*   `main.js`: The main controller script responsible for tab switching logic and loading the Disqus comments.
+*   `animal-classifier.js`: Contains all JavaScript logic specific to the Animal Classifier, including model loading, webcam handling, and image file processing.
+*   `lotto.js`: Holds the logic for the Lotto Number Generator and the `lotto-ball` custom element definition.
+*   `blueprint.md`: This file, documenting the project's architecture and features.
