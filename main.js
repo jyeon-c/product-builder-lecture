@@ -1,86 +1,57 @@
 
-class LottoBall extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-  }
+// Teachable Machine model URL
+const URL = "https://teachablemachine.withgoogle.com/models/xQ-P0uqTP/";
 
-  connectedCallback() {
-    this.render();
-  }
+let model, webcam, labelContainer, maxPredictions;
 
-  getColor(number) {
-    const num = parseInt(number, 10);
-    if (num <= 10) return '#fbc400';
-    if (num <= 20) return '#69c8f2';
-    if (num <= 30) return '#ff7272';
-    if (num <= 40) return '#aaa';
-    return '#b0d840';
-  }
+const startButton = document.getElementById("start-button");
+startButton.addEventListener("click", () => init());
 
-  render() {
-    const number = this.getAttribute('number');
-    if (number === null) return;
+// Load the image model and setup the webcam
+async function init() {
+    startButton.textContent = "Loading model...";
+    startButton.disabled = true;
 
-    const color = this.getColor(number);
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
 
-    const circle = document.createElement('div');
-    circle.style.width = '60px';
-    circle.style.height = '60px';
-    circle.style.borderRadius = '50%';
-    circle.style.display = 'flex';
-    circle.style.justifyContent = 'center';
-    circle.style.alignItems = 'center';
-    circle.style.color = 'white';
-    circle.style.fontSize = '1.5rem';
-    circle.style.fontWeight = 'bold';
-    circle.style.background = color;
-    circle.style.boxShadow = `0 0 15px ${color}`;
-    circle.textContent = number;
+    // Load the model and metadata
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
 
-    this.shadowRoot.innerHTML = '';
-    this.shadowRoot.appendChild(circle);
-  }
-}
+    // Setup webcam
+    const flip = true; // Whether to flip the webcam
+    webcam = new tmImage.Webcam(400, 400, flip); // width, height, flip
+    await webcam.setup(); // request access to the webcam
+    await webcam.play();
+    window.requestAnimationFrame(loop);
 
-customElements.define('lotto-ball', LottoBall);
-
-const generateLottoNumbers = () => {
-    const container = document.getElementById('lotto-numbers-container');
-    container.innerHTML = '';
-    const numbers = new Set();
-    while (numbers.size < 6) {
-        numbers.add(Math.floor(Math.random() * 45) + 1);
+    // Append webcam element to the container
+    document.getElementById("webcam-container").innerHTML = '';
+    document.getElementById("webcam-container").appendChild(webcam.canvas);
+    
+    // Create label container
+    labelContainer = document.getElementById("label-container");
+    for (let i = 0; i < maxPredictions; i++) { // and class labels
+        labelContainer.appendChild(document.createElement("div"));
     }
 
-    Array.from(numbers).sort((a,b) => a-b).forEach((number, index) => {
-        setTimeout(() => {
-            const lottoBall = document.createElement('lotto-ball');
-            lottoBall.setAttribute('number', number);
-            container.appendChild(lottoBall);
-        }, index * 100)
-    });
+    startButton.style.display = 'none'; // Hide button after start
 }
 
-document.getElementById('generate-button').addEventListener('click', generateLottoNumbers);
-
-// Theme switcher logic
-const themeSwitch = document.getElementById('checkbox');
-const body = document.body;
-
-themeSwitch.addEventListener('change', () => {
-    body.classList.toggle('dark-mode');
-    // Save theme preference
-    localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
-});
-
-// Check for saved theme preference or system preference
-const savedTheme = localStorage.getItem('theme');
-const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-    body.classList.add('dark-mode');
-    themeSwitch.checked = true;
+async function loop() {
+    webcam.update(); // update the webcam frame
+    await predict();
+    window.requestAnimationFrame(loop);
 }
 
-generateLottoNumbers();
+// run the webcam image through the image model
+async function predict() {
+    // predict can take in an image, video or canvas html element
+    const prediction = await model.predict(webcam.canvas);
+    for (let i = 0; i < maxPredictions; i++) {
+        const classPrediction =
+            prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(1) + "%";
+        labelContainer.childNodes[i].innerHTML = classPrediction;
+    }
+}

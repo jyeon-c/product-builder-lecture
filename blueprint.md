@@ -1,25 +1,28 @@
 
-# Lotto Number Generator & Partnership Inquiry
+# AI Animal Face Classifier
 
 ## Overview
 
-This project is a multi-functional web application. It features a visually appealing lottery number generator, a detailed partnership inquiry form, and a Disqus-powered comment section. The application is built with a focus on modern web technologies, a clean UI, and a component-based architecture using Web Components.
+This web application uses a pre-trained Teachable Machine model to classify a user's face from a live webcam feed, determining whether they resemble a "dog person" or a "cat person" in real-time. The project is built with plain HTML, CSS, and JavaScript, leveraging TensorFlow.js for in-browser machine learning.
 
-## Design and Features
+## Core Features
 
-*   **UI/UX:** A clean, modern design with a "glassmorphism" effect. The application is responsive and includes interactive elements with subtle animations.
-*   **Dark/Light Mode:** A theme switcher allows users to toggle between light and dark themes, with the preference saved locally.
-*   **Lottery Number Generation:** Generates 6 unique random numbers between 1 and 45.
-*   **Web Components:** The `lotto-ball` custom element is used for displaying lottery numbers in a modular way.
-*   **Partnership Inquiry Form:** A Formspree-powered form for partnership inquiries. It includes fields for name, company name, email, inquiry type (dropdown), and a message.
-*   **Disqus Comments:** A comment section powered by Disqus is integrated at the bottom of the page, allowing for community interaction. The implementation includes configuration variables for the page URL and a unique identifier to ensure comments are correctly associated with the page.
+*   **Real-time Webcam Classification:** Uses the webcam to capture video feed continuously.
+*   **Teachable Machine Integration:** Loads a custom image classification model trained to distinguish between "dog-like" and "cat-like" faces.
+*   **Live Predictions:** Displays the probability scores for each class (Dog vs. Cat) dynamically on the screen.
+*   **Simple User Interface:** A clean, modern, and user-friendly interface that is easy to understand and operate. The user clicks a single "Start" button to begin the experience.
 
-## Current Plan
+## Technical Stack
 
-*   **Objective:** Implement a Disqus comment section below the partnership inquiry form.
-*   **Steps:**
-    1.  **Update `index.html`:** Add a new container with the `id="disqus_thread"` below the form. Embed the Disqus universal embed code, using the user-provided shortname `product-builder-1`.
-    2.  **Configure `disqus_config`:**
-        *   Set `this.page.url` to the current page's URL (`window.location.href`).
-        *   Set `this.page.identifier` to a unique string for this page (`lotto-generator-page-1`).
-    3.  **Update `style.css`:** Add a `margin-top` to the `#disqus_thread` container to ensure consistent spacing with the other elements on the page.
+*   **Frontend:** HTML5, CSS3, JavaScript (ES6+)
+*   **Machine Learning:**
+    *   **TensorFlow.js:** For running the model in the browser.
+    *   **Teachable Machine Image Library:** A high-level library that simplifies the process of using image classification models created on the Teachable Machine platform.
+*   **Model URL:** `https://teachablemachine.withgoogle.com/models/xQ-P0uqTP/`
+
+## Project Structure
+
+*   `index.html`: The main entry point of the application. Contains the structure for the webcam view, label container, and start button.
+*   `style.css`: Provides the styling for the application, creating a modern and responsive layout.
+*   `main.js`: Contains the core JavaScript logic for loading the model, setting up the webcam, and running the prediction loop.
+*   `blueprint.md`: This file, serving as the project's single source of truth.
