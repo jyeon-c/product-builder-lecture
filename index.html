@@ -99,23 +99,20 @@
             <section class="comments-section">
                 <h2>의견 남기기</h2>
                 <p>이 웹사이트에 대한 의견이나 새로운 기능 제안을 자유롭게 남겨주세요!</p>
-                <!-- Giscus 댓글 위젯 -->
-                <div class="giscus"></div>
-                <script src="https://giscus.app/client.js"
-                        data-repo="jyeon-c/product-builder-lecture"
-                        data-repo-id="R_kgDOMNoJgQ"
-                        data-category="General"
-                        data-category-id="DIC_kwDOMNoJgc4ChdM2"
-                        data-mapping="pathname"
-                        data-strict="0"
-                        data-reactions-enabled="1"
-                        data-emit-metadata="0"
-                        data-input-position="bottom"
-                        data-theme="light"
-                        data-lang="ko"
-                        crossorigin="anonymous"
-                        async>
+                <div id="disqus_thread"></div>
+                <script>
+                    var disqus_config = function () {
+                        this.page.url = window.location.href;
+                        this.page.identifier = window.location.href;
+                    };
+                    (function() { 
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://product-builder-lecture.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
                 </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
             </section>
         </div>
 

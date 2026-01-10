@@ -14,6 +14,11 @@ const resultContainer = document.getElementById("result-container");
 const resultTitle = document.getElementById("result-title");
 const loader = document.querySelector(".loader");
 
+// --- UI 제어 함수 ---
+function showLoader(show) {
+    loader.style.display = show ? 'block' : 'none';
+}
+
 // --- 초기화 ---
 document.addEventListener('DOMContentLoaded', () => {
     webcamButton.addEventListener('click', initWebcam);
@@ -32,7 +37,6 @@ async function loadModel() {
         maxPredictions = model.getTotalClasses();
     } catch (error) {
         console.error("모델 로딩 실패:", error);
-        // 사용자에게 오류 알림
         resultTitle.textContent = "모델을 로드하는 데 실패했습니다. 페이지를 새로고침 해주세요.";
         resultContainer.classList.add('active');
     } finally {
@@ -93,10 +97,9 @@ async function handleFileSelect(event) {
     placeholder.style.display = 'none';
 
     const reader = new FileReader();
-    reader.onload = async (e) => {
+    reader.onload = (e) => {
         imagePreview.src = e.target.result;
         imagePreview.style.display = 'block';
-        // 이미지가 완전히 로드된 후 예측
         imagePreview.onload = async () => {
             try {
                 await loadModel();
@@ -122,11 +125,14 @@ async function predict(imageElement) {
 }
 
 function updateResultUI(prediction) {
-    const dogPrediction = prediction.find(p => p.className === "Dog");
-    const catPrediction = prediction.find(p => p.className === "Cat");
+    // 대소문자 구분 없이 클래스 찾기
+    const dogPrediction = prediction.find(p => p.className.toLowerCase() === "dog");
+    const catPrediction = prediction.find(p => p.className.toLowerCase() === "cat");
 
     if (!dogPrediction || !catPrediction) {
-        console.error("예측 클래스를 찾을 수 없습니다.");
+        console.error("예측 클래스 'Dog' 또는 'Cat'를 찾을 수 없습니다. 받은 클래스:", prediction.map(p => p.className));
+        resultTitle.textContent = "결과를 처리하는 중 오류가 발생했습니다.";
+        resultContainer.classList.add('active');
         return;
     }
 
@@ -135,15 +141,15 @@ function updateResultUI(prediction) {
     const dogPercent = (dogProb * 100).toFixed(1);
     const catPercent = (catProb * 100).toFixed(1);
 
-    document.getElementById('dog-result').style.width = dogPercent + '%';
-    document.getElementById('cat-result').style.width = catPercent + '%';
-    document.getElementById('dog-percent').textContent = dogPercent + '%';
-    document.getElementById('cat-percent').textContent = catPercent + '%';
+    document.getElementById('dog-result').style.width = dogPercent + '%;
+    document.getElementById('cat-result').style.width = catPercent + '%;
+    document.getElementById('dog-percent').textContent = dogPercent + '%;
+    document.getElementById('cat-percent').textContent = catPercent + '%;
 
     resultTitle.textContent = dogProb > catProb 
         ? "분석 결과: 당신은 강아지상에 가깝습니다!"
         : catProb > dogProb 
-            ? "분언석 결과: 당신은 고양이상에 가깝습니다!"
+            ? "분석 결과: 당신은 고양이상에 가깝습니다!"
             : "분석 결과: 강아지상과 고양이상의 특징이 모두 있네요!";
 
     resultContainer.classList.add('active');
@@ -158,7 +164,7 @@ async function resetState() {
     webcamContainer.innerHTML = '';
     imagePreview.style.display = 'none';
     imagePreview.src = '#';
-    imagePreview.onload = null; // onload 이벤트 핸들러 제거
+    imagePreview.onload = null; 
     placeholder.style.display = 'flex';
     resultContainer.classList.remove('active');
     webcamButton.textContent = '웹캠 사용하기';
