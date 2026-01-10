@@ -1,7 +1,7 @@
 
 // --- 전역 변수 및 상수 ---
-// 새롭고 안정적인 공개 모델 URL로 교체
-const URL = "https://teachablemachine.withgoogle.com/models/vuE9sOY19/"; 
+// 사용자가 제공한 새로운 모델 URL로 교체
+const URL = "https://teachablemachine.withgoogle.com/models/xQ-P0uqTP/";
 let model, webcam, maxPredictions;
 
 // --- DOM 요소 ---
