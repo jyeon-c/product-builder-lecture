@@ -97,7 +97,7 @@ async function handleFileSelect(event) {
     placeholder.style.display = 'none';
 
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
         imagePreview.src = e.target.result;
         imagePreview.style.display = 'block';
         imagePreview.onload = async () => {
@@ -141,10 +141,10 @@ function updateResultUI(prediction) {
     const dogPercent = (dogProb * 100).toFixed(1);
     const catPercent = (catProb * 100).toFixed(1);
 
-    document.getElementById('dog-result').style.width = dogPercent + '%;
-    document.getElementById('cat-result').style.width = catPercent + '%;
-    document.getElementById('dog-percent').textContent = dogPercent + '%;
-    document.getElementById('cat-percent').textContent = catPercent + '%;
+    document.getElementById('dog-result').style.width = dogPercent + '%';
+    document.getElementById('cat-result').style.width = catPercent + '%';
+    document.getElementById('dog-percent').textContent = dogPercent + '%';
+    document.getElementById('cat-percent').textContent = catPercent + '%';
 
     resultTitle.textContent = dogProb > catProb 
         ? "분석 결과: 당신은 강아지상에 가깝습니다!"
