@@ -3,6 +3,7 @@
 :root {
     --primary-color: #4a90e2;
     --secondary-color: #50e3c2;
+    --accent-color: #f5a623; /* A new lively accent color */
     --dark-blue: #3b4d61;
     --light-gray: #f7f9fb;
     --text-color: #333;
@@ -10,7 +11,7 @@
     --border-radius-md: 8px;
     --border-radius-lg: 16px;
     --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.15); /* Stronger shadow */
 }
 
 body {
@@ -28,224 +29,109 @@ body {
 }
 
 /* --- Header and Footer --- */
-.site-header, .site-footer {
-    background-color: var(--white-color);
-    padding: 20px 0;
-    box-shadow: var(--shadow-soft);
-}
-
-.site-header .container, .site-footer .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    text-decoration: none;
-}
-
-.main-nav a, .footer-nav a {
-    color: var(--dark-blue);
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.main-nav a:hover, .footer-nav a:hover {
-    color: var(--primary-color);
-}
-
-.site-footer {
-    margin-top: 40px;
-    border-top: 1px solid #eef2f5;
-    font-size: 0.9rem;
-}
+/* ... (Header and Footer styles remain mostly the same) ... */
+.site-header, .site-footer { background-color: var(--white-color); padding: 20px 0; box-shadow: var(--shadow-soft); }
+.site-header .container, .site-footer .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; }
+.main-nav a, .footer-nav a { color: var(--dark-blue); text-decoration: none; margin-left: 20px; font-weight: 500; transition: color 0.3s ease; }
+.main-nav a:hover, .footer-nav a:hover { color: var(--primary-color); }
+.site-footer { margin-top: 40px; border-top: 1px solid #eef2f5; font-size: 0.9rem; }
 
 /* --- Hero Section --- */
-.hero {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: var(--white-color);
-    text-align: center;
-    padding: 60px 0;
-    margin-bottom: 20px;
-}
+.hero { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: var(--white-color); text-align: center; padding: 50px 0 30px; }
+.hero h1 { font-size: 2.5rem; margin: 0 0 10px; }
 
-.hero h1 {
-    font-size: 2.8rem;
-    margin: 0 0 10px;
-}
-
-/* --- Tool Sections --- */
-.tool-section {
-    padding: 60px 0;
-    text-align: center;
-}
-
-.tool-section.alternate-bg {
-    background-color: var(--white-color);
-}
-
-.tool-section h2 {
-    font-size: 2.2rem;
-    color: var(--dark-blue);
-    margin-bottom: 10px;
-}
-
-.tool-section > .container > p {
-    max-width: 600px;
-    margin: 0 auto 40px;
-    font-size: 1.1rem;
-    color: #66727f;
-}
-
-/* --- Animal Classifier Specifics --- */
-.tool-content-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 40px;
-    align-items: center;
-    text-align: left;
-}
-
-.tool-controls h3 {
-    font-size: 1.5rem;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-#interactive-container {
-    width: 100%;
-    padding-top: 75%; /* 4:3 aspect ratio */
-    position: relative;
-    border-radius: var(--border-radius-lg);
-    overflow: hidden;
-    background: #eef2f5;
-    box-shadow: var(--shadow-strong);
-}
-
-#webcam-container, #image-preview {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-#image-preview { object-fit: contain; }
-
-#label-container {
-    margin-top: 30px;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    min-height: 50px;
-}
-
-/* --- Lotto Generator Specifics --- */
-#lotto-numbers-container {
+/* --- Modern Tab Navigation --- */
+.tab-nav {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    margin: 30px 0 40px;
+    background: var(--white-color);
+    padding: 8px;
+    border-radius: var(--border-radius-lg);
+    margin: -40px auto 30px;
+    width: fit-content;
+    box-shadow: var(--shadow-strong);
+    position: relative;
+    z-index: 2;
 }
 
-/* --- Buttons --- */
-.btn {
-    display: block;
-    width: 100%;
-    padding: 15px 20px;
-    font-size: 1.1rem;
-    font-weight: bold;
+.tab-link {
+    padding: 12px 25px;
     border: none;
-    border-radius: var(--border-radius-md);
+    background: transparent;
     cursor: pointer;
+    font-size: 1rem;
+    color: var(--dark-blue);
+    font-weight: 600;
+    border-radius: 12px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tab-link.active {
     background-color: var(--primary-color);
     color: var(--white-color);
-    text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.4);
+}
+
+/* --- Tool Content Wrapper --- */
+.tool-content-wrapper {
+    background: var(--white-color);
+    padding: 40px;
+    border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-soft);
 }
 
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-strong);
-}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.5s ease; }
 
-.btn.btn-secondary {
-    background-color: var(--white-color);
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    margin-top: 10px;
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.tool-content-wrapper h2 { font-size: 2.2rem; color: var(--dark-blue); margin-bottom: 10px; text-align: center; }
+.tool-content-wrapper p { max-width: 600px; margin: 0 auto 30px; font-size: 1.1rem; color: #66727f; text-align: center; }
+
+/* --- Animal Classifier Specifics --- */
+.tool-content-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center; text-align: left; }
+.tool-controls h3 { font-size: 1.5rem; margin-top: 0; margin-bottom: 10px; color: var(--dark-blue); }
+.tool-controls p { text-align: left; margin-bottom: 20px; font-size: 1rem; }
+
+#interactive-container { width: 100%; padding-top: 75%; position: relative; border-radius: var(--border-radius-lg); overflow: hidden; background: #eef2f5; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+#webcam-container, #image-preview { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+#image-preview { object-fit: contain; }
+#label-container { margin-top: 30px; font-size: 1.8rem; font-weight: bold; color: var(--primary-color); min-height: 50px; text-align: center; }
+
+/* --- Lotto Generator Specifics --- */
+#lotto-numbers-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 30px 0 40px; }
+
+/* --- General Button Styles --- */
+.btn { display: block; width: 100%; padding: 15px 20px; font-size: 1.1rem; font-weight: bold; border: none; border-radius: var(--border-radius-md); cursor: pointer; background-color: var(--primary-color); color: var(--white-color); text-align: center; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; box-shadow: var(--shadow-soft); }
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-strong); }
+.btn.btn-secondary { background-color: var(--white-color); color: var(--primary-color); border: 2px solid var(--primary-color); margin-top: 10px; }
+#generate-button { max-width: 300px; margin: 0 auto; }
 
 /* --- Ad Container --- */
-.ad-container {
-    padding: 20px 0;
-    text-align: center;
-}
+.ad-container { padding: 30px 0; text-align: center; }
 
 /* --- Responsive Design --- */
 @media (max-width: 768px) {
-    .tool-content-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .hero h1 { font-size: 2.2rem; }
-    .tool-section h2 { font-size: 1.8rem; }
+    .tool-content-grid { grid-template-columns: 1fr; text-align: center; }
+    .tool-controls { order: 2; }
+    .tool-controls p, .tool-controls h3 { text-align: center; }
+    .hero h1 { font-size: 2rem; }
 }
 
 @media (max-width: 600px) {
-    .site-header .container {
-        flex-direction: column;
-    }
-    .main-nav {
-        margin-top: 15px;
-    }
-    .main-nav a {
-        margin: 0 10px;
-    }
+    .site-header .container { flex-direction: column; }
+    .main-nav { margin-top: 15px; }
+    .main-nav a { margin: 0 10px; }
+    .tab-nav { width: 90%; }
+    .tab-link { padding: 10px 15px; font-size: 0.9rem; }
+    .tool-content-wrapper { padding: 20px; }
 }
 
-/* --- Form styles for Contact page --- */
-.page-content {
-    padding: 40px 0;
-}
-
-.contact-form {
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 30px;
-    background: var(--white-color);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-strong);
-    text-align: left;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-.form-group input, .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius-md);
-    box-sizing: border-box; /* Important for padding */
-}
-
-#form-status {
-    margin-top: 20px;
-    font-weight: bold;
-    text-align: center;
-}
+/* --- Form styles for Contact page (from previous step) --- */
+.page-content { padding: 40px 0; }
+.contact-form { max-width: 600px; margin: 30px auto; padding: 30px; background: var(--white-color); border-radius: var(--border-radius-lg); box-shadow: var(--shadow-strong); text-align: left; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: bold; }
+.form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: var(--border-radius-md); box-sizing: border-box; }
+#form-status { margin-top: 20px; font-weight: bold; text-align: center; }

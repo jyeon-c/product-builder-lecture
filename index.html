@@ -15,10 +15,8 @@
         <div class="container">
             <a href="index.html" class="logo">All-in-One Fun</a>
             <nav class="main-nav">
-                <a href="#animal-test">Animal Classifier</a>
-                <a href="#lotto">Lotto Generator</a>
-                <a href="contact.html">Contact</a>
                 <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
             </nav>
         </div>
     </header>
@@ -44,36 +42,44 @@
              </script>
         </div>
 
-        <!-- Animal Classifier Section -->
-        <section id="animal-test" class="tool-section">
-            <div class="container">
-                <h2>Which Animal Do You Resemble?</h2>
-                <p>Use our AI to see if you look more like a cat or a dog. Upload a photo or use your webcam!</p>
-                <div class="tool-content-grid">
-                    <div class="tool-controls">
-                        <h3>Try It Now</h3>
-                        <button id="webcam-button" type="button" class="btn">Use Webcam</button>
-                        <input type="file" id="file-upload" accept="image/*" style="display: none;" />
-                        <button id="file-upload-button" type="button" class="btn btn-secondary">Upload Image</button>
-                    </div>
-                    <div id="interactive-container">
-                        <div id="webcam-container"></div>
-                        <img id="image-preview" src="" alt="Image Preview"/>
-                    </div>
-                </div>
-                <div id="label-container"></div>
-            </div>
-        </section>
+        <!-- Tab Navigation -->
+        <div class="container">
+            <nav class="tab-nav">
+                <button class="tab-link active" data-tab="animal-test">Animal Classifier</button>
+                <button class="tab-link" data-tab="lotto">Lotto Generator</button>
+            </nav>
+        </div>
 
-        <!-- Lotto Generator Section -->
-        <section id="lotto" class="tool-section alternate-bg">
-             <div class="container">
-                <h2>Lotto Number Generator</h2>
-                <p>Get a random set of numbers for your next lottery draw.</p>
-                <div id="lotto-numbers-container"></div>
-                <button id="generate-button" class="btn">Generate Numbers</button>
+        <!-- Main Tool Content -->
+        <div class="container">
+             <div class="tool-content-wrapper">
+                <!-- Animal Classifier Page -->
+                <div id="animal-test" class="tab-content active">
+                    <div class="tool-content-grid">
+                        <div class="tool-controls">
+                            <h3>Which Animal Do You Resemble?</h3>
+                            <p>Use our AI to see if you look more like a cat or a dog. Upload a photo or use your webcam!</p>
+                            <button id="webcam-button" type="button" class="btn">Use Webcam</button>
+                            <input type="file" id="file-upload" accept="image/*" style="display: none;" />
+                            <button id="file-upload-button" type="button" class="btn btn-secondary">Upload Image</button>
+                        </div>
+                        <div id="interactive-container">
+                            <div id="webcam-container"></div>
+                            <img id="image-preview" src="" alt="Image Preview"/>
+                        </div>
+                    </div>
+                    <div id="label-container"></div>
+                </div>
+
+                <!-- Lotto Generator Page -->
+                <div id="lotto" class="tab-content">
+                    <h2>Lotto Number Generator</h2>
+                    <p>Get a random set of numbers for your next lottery draw.</p>
+                    <div id="lotto-numbers-container"></div>
+                    <button id="generate-button" class="btn">Generate Numbers</button>
+                </div>
             </div>
-        </section>
+        </div>
 
         <!-- Ad Unit Bottom -->
         <div class="ad-container">

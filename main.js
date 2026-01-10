@@ -1,44 +1,53 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Smooth Scrolling for Anchor Links --- //
-    const navLinks = document.querySelectorAll('.main-nav a[href^="#"], .footer-nav a[href^="#"]');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // --- Modern Tab Navigation --- //
+    const tabs = document.querySelectorAll('.tab-link');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // 1. Deactivate all tabs and content panels
+            tabs.forEach(item => item.classList.remove('active'));
+            contents.forEach(item => item.classList.remove('active'));
+
+            // 2. Activate the clicked tab
+            tab.classList.add('active');
+
+            // 3. Activate the corresponding content panel
+            const target = document.getElementById(tab.dataset.tab);
+            if (target) {
+                target.classList.add('active');
+            }
+            
+            // 4. Special handling for Lotto tab to generate numbers on view
+            if (tab.dataset.tab === 'lotto') {
+                // Ensure the lotto number generation function exists and call it
+                if (typeof generateLottoNumbers === 'function') {
+                    generateLottoNumbers();
+                }
             }
         });
     });
 
-    // --- Contact Form Submission Handling --- //
+    // --- Contact Form Submission Handling (from previous step) --- //
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             if (formStatus) {
                 formStatus.textContent = 'Sending message...';
                 formStatus.style.color = '#333';
             }
-            
             const formData = new FormData(contactForm);
-            
             try {
-                // NOTE: This uses Formspree. You need to set your own Formspree endpoint.
                 const response = await fetch('https://formspree.io/f/meeejzwo', {
                     method: 'POST',
                     body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    headers: { 'Accept': 'application/json' }
                 });
-
                 if (response.ok) {
                     if (formStatus) {
                         formStatus.textContent = 'Message sent successfully! We will get back to you soon.';
