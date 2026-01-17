@@ -1,15 +1,11 @@
 
-const MODEL_URL = 'https://teachablemachine.withgoogle.com/models/73E2aXVnN/';
+const MODEL_URL = 'https://teachablemachine.withgoogle.com/models/tCFCnkWVM/';
 
 class AnimalClassifier extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.resultText = ''; // 결과 텍스트를 저장할 속성
-
-        // Load necessary scripts
-        this.loadScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js');
-        this.loadScript('https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js');
 
         const template = document.createElement('template');
         template.innerHTML = `
@@ -164,21 +160,25 @@ class AnimalClassifier extends HTMLElement {
 
     async initModel() {
         try {
-            await this.loadScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js');
-            await this.loadScript('https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js');
+            await this.loadScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js');
+            await this.loadScript('https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js');
             const modelURL = MODEL_URL + 'model.json';
             const metadataURL = MODEL_URL + 'metadata.json';
             this.model = await tmImage.load(modelURL, metadataURL);
         } catch (error) {
             console.error('모델을 로드하는 데 실패했습니다.', error);
-            // 사용자에게 모델 로드 실패를 알리는 UI 처리 (예: 에러 메시지 표시)
+            this.showToast('모델 로딩에 실패했습니다. 페이지를 새로고침 해주세요.');
         }
     }
 
-
     async handleImageUpload(event) {
         const file = event.target.files[0];
-        if (!file) return;
+        if (!file || !this.model) {
+            if(!this.model) {
+                this.showToast('모델이 아직 로딩 중입니다. 잠시 후 다시 시도해주세요.');
+            }
+            return;
+        };
 
         const imagePreview = this.shadowRoot.getElementById('image-preview');
         const placeholder = this.shadowRoot.getElementById('placeholder-container');
