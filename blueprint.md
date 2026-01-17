@@ -1,13 +1,13 @@
 
-# Blueprint: All-in-One Fun Page - SEO & Performance Optimization
+# Blueprint: All-in-One Fun Page - Modernization with Web Components
 
 ## 1. Project Overview
 
-This project is an "All-in-One Fun Page" providing users with a variety of interactive tools. The goal is to create a high-quality, user-friendly, and performant website that is well-optimized for search engines.
+This project is an "All-in-One Fun Page" providing users with a variety of interactive tools. The goal is to create a high-quality, user-friendly, and performant website that is well-optimized for search engines and built with modern web standards.
 
 ---
 
-## 2. Implemented Features & Design (Previous State)
+## 2. Implemented Features & Design
 
 ### Core Functionality
 *   **Animal Classifier:** Uses a pre-trained machine learning model to classify images.
@@ -18,42 +18,47 @@ This project is an "All-in-One Fun Page" providing users with a variety of inter
 *   **Modern UI/UX:** A professional design with a consistent header, footer, and responsive layout.
 *   **Single Page Application Feel:** Core tools are integrated into the main page (`index.html`) for a seamless user experience.
 
+### Technical Optimizations
+*   **Performance:** Minified and deferred JavaScript, leading to faster page loads.
+*   **SEO:** Comprehensive keyword optimization, canonical tags, structured data, `robots.txt`, and a `sitemap.xml` for enhanced search engine visibility.
+*   **GEO Targeting:** `hreflang` tags implemented to target Korean-speaking users.
+*   **Security:** Enforced HTTPS with the `Strict-Transport-Security` header.
+
 ---
 
-## 3. Current Task: SEO & Performance Audit Remediation
+## 3. Current Task: Refactor Tools into Web Components
 
-This task focused on addressing a list of SEO and performance issues to improve search engine ranking, loading speed, and overall user experience.
+This task focuses on modernizing the codebase by refactoring the primary tools ("AI Animal Classifier" and "Lotto Number Generator") into reusable, encapsulated Web Components. This will improve code modularity, maintainability, and readability.
 
-### Plan & Action Steps (Completed)
+### Plan & Action Steps
 
-1.  **High-Priority Issues:**
-    *   `[x]` **Keyword Optimization:** Integrated relevant keywords ("AI 동물상 테스트", "로또 번호 생성기", "재미") into the `<title>`, `<meta name="description">`, and heading tags (`<h1>`, `<h2>`) across `index.html`, `about.html`, and `contact.html`.
-    *   `[x]` **Eliminate Render-Blocking Resources:** Moved all `<script>` tags to the end of the `<body>` and added the `defer` attribute to prevent them from blocking page rendering.
-    *   `[x]` **URL Canonicalization:** Added `<link rel="canonical" ...>` tags to all HTML pages to specify the preferred URL and avoid duplicate content issues.
+1.  **Create a `components` Directory:**
+    *   `[ ]` Create a new `/components` directory to store the Web Component source files.
 
-2.  **Medium-Priority Issues:**
-    *   `[x]` **Minify JavaScript:** Minified `main.js` and `animal-classifier.js` to reduce their file size and improve page load times. The site has been updated to use the new `.min.js` files.
-    *   `[x]` **Create Custom 404 Page:** Designed and created a `404.html` page with helpful navigation links to guide users who land on a non-existent page.
-    *   `[x]` **Add Structured Data:** Implemented schema markup (JSON-LD) on `index.html` to help search engines better understand the page's content.
+2.  **Develop `LottoGenerator` Component:**
+    *   `[ ]` Create `lotto-generator.js` inside the `components` directory.
+    *   `[ ]` Implement the `LottoGenerator` class, extending `HTMLElement`.
+    *   `[ ]` Move the relevant HTML structure into a `<template>` within the component.
+    *   `[ ]` Encapsulate the component's styles within the Shadow DOM to prevent CSS conflicts.
+    *   `[ ]` Move the number generation logic into the component's class methods.
+    *   `[ ]` Define the custom element: `customElements.define('lotto-generator', LottoGenerator);`
 
-3.  **Low-Priority Issues:**
-    *   `[x]` **Add Favicon:** Created and linked a simple `favicon.svg` to be displayed in browser tabs.
-    *   `[x]` **Add Security Headers:** Configured the server to send the `Strict-Transport-Security` header to enforce HTTPS by creating a `firebase.json` file.
-    *   `[x]` **Address Console Errors & HTTP Requests:** Refactored the main page to remove the tabbed navigation and integrate the lotto generator directly, simplifying the DOM and user flow.
+3.  **Develop `AnimalClassifier` Component:**
+    *   `[ ]` Create `animal-classifier.js` inside the `components` directory.
+    *   `[ ]` Implement the `AnimalClassifier` class, extending `HTMLElement`.
+    *   `[ ]` Move the HTML structure for the classifier into a `<template>`.
+    *   `[ ]` Encapsulate styles within the Shadow DOM.
+    *   `[ ]` Adapt the existing image classification logic (including model loading and prediction) to work within the component's lifecycle methods.
+    *   `[ ]` Define the custom element: `customElements.define('animal-classifier', AnimalClassifier);`
 
-4.  **Items Outside of Scope:**
-    *   **SPF Record:** This requires DNS configuration and cannot be managed from the codebase. The user will be advised on how to set this up separately.
+4.  **Integrate Components into the Application:**
+    *   `[ ]` Update `index.html` to remove the old hardcoded HTML for the tools.
+    *   `[ ]` Add the new custom element tags (`<lotto-generator>` and `<animal-classifier>`) to `index.html`.
+    *   `[ ]` In `main.js`, import the new component modules (`lotto-generator.js`, `animal-classifier.js`) so they are registered and available to the browser.
+    *   `[ ]` Test thoroughly to ensure all functionality remains intact.
 
 ---
 
 ## 4. Completion Summary
 
-All planned SEO and performance optimizations have been successfully implemented. The website now has improved metadata, faster loading times, enhanced security, and a better user experience. The key changes include:
-
-*   **Unified Main Page:** The animal classifier and lotto number generator are now seamlessly integrated into a single, streamlined `index.html`.
-*   **Performance Boost:** JavaScript files are now minified and loaded deferred, significantly improving the initial page render time.
-*   **Enhanced SEO:** With optimized keywords, canonical tags, and structured data, the site is now more easily discoverable and understandable by search engines.
-*   **Improved User Experience:** A custom `404.html` page and a dedicated favicon provide a more polished and professional feel.
-*   **Security Hardening:** A `firebase.json` file now enforces `Strict-Transport-Security` for all visitors.
-
-The project is now in a much better state regarding technical SEO and performance.
+The project is being updated to use a modern, component-based architecture. This will result in a more robust, scalable, and maintainable codebase, fully aligned with modern web development best practices.

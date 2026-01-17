@@ -25,7 +25,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-Q0R1TSJBPM');
     </script>
     <script type="text/javascript">
@@ -75,51 +74,8 @@
         <!-- 메인 콘텐츠 -->
         <div class="container">
              <div class="tool-content-wrapper">
-                <!-- AI 동물상 테스트 -->
-                <section id="animal-classifier" class="tool-section">
-                    <h2>어떤 동물과 닮았을까요?</h2>
-                    <p>AI가 여러분의 얼굴을 분석해 강아지상인지, 고양이상인지 알려드립니다. 아래 버튼으로 사진을 올려보세요!</p>
-                     <div class="tool-content-grid">
-                        <div class="tool-controls">
-                            <input type="file" id="file-upload" accept="image/*" style="display: none;" />
-                            <button id="file-upload-button" type="button" class="btn btn-secondary">이미지 업로드</button>
-                        </div>
-                        <div id="interactive-container">
-                            <div class="loader"></div> <!-- 로딩 스피너 -->
-                            <div id="placeholder-container">
-                                <svg id="placeholder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M1.5 21.5a2.5 2.5 0 0 1 2-2.45c2.27-.55 4.53-1.05 6.75-1.05s4.48.5 6.75 1.05A2.5 2.5 0 0 1 19.5 21.5"/>
-                                    <path d="M19.12 9.42a4.5 4.5 0 1 1-5.6-5.6"/><path d="M20.44 14.88a2.5 2.5 0 0 1 2.06 2.57c-.2 1.95-1.26 3.8-2.5 5.05"/><path d="M3.56 14.88a2.5 2.5 0 0 0-2.06 2.57c.2 1.95 1.26 3.8 2.5 5.05"/>
-                                </svg>
-                                <p>이곳에 이미지가 표시됩니다</p>
-                            </div>
-                            <img id="image-preview" alt="업로드된 이미지 미리보기"/>
-                        </div>
-                    </div>
-                    <div id="result-container">
-                        <h3 id="result-title">분석 결과가 여기에 표시됩니다.</h3>
-                        <div class="result-bar">
-                            <div id="dog-result" class="result-bar-inner">
-                                <span class="result-label">🐶 강아지상</span>
-                            </div>
-                            <span id="dog-percent" class="result-percent"></span>
-                        </div>
-                        <div class="result-bar">
-                            <div id="cat-result" class="result-bar-inner">
-                                <span class="result-label">🐱 고양이상</span>
-                            </div>
-                            <span id="cat-percent" class="result-percent"></span>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 로또 번호 생성기 -->
-                <section id="lotto-generator" class="tool-section">
-                    <h2>로또 번호 생성기</h2>
-                    <p>버튼을 눌러 당신의 행운 번호 6개를 받아보세요.</p>
-                    <button id="generate-lotto-button" class="btn">번호 생성하기</button>
-                    <div id="lotto-numbers-container"></div>
-                </section>
+                <animal-classifier></animal-classifier>
+                <lotto-generator></lotto-generator>
             </div>
         </div>
         
@@ -159,10 +115,6 @@
             </nav>
         </div>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js" defer></script>
-    <script src="animal-classifier.min.js" defer></script>
-    <script src="main.min.js" defer></script>
+    <script src="main.js" type="module"></script>
 </body>
 </html>
