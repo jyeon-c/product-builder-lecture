@@ -203,11 +203,10 @@ class AnimalClassifier extends HTMLElement {
 
         try {
             const prediction = await this.model.predict(imageElement);
-            const dogPrediction = prediction.find(p => p.className === 'dog');
-            const catPrediction = prediction.find(p => p.className === 'cat');
-
-            const dog = dogPrediction ? dogPrediction.probability : 0;
-            const cat = catPrediction ? catPrediction.probability : 0;
+            // metadata.json에 따르면 레이블 순서는 ["dog", "cat"] 입니다.
+            // 따라서 prediction[0]은 "dog"이고 prediction[1]은 "cat"입니다.
+            const dog = prediction[0].probability;
+            const cat = prediction[1].probability;
             
             this.updateResult(dog, cat);
         } catch (error) {
