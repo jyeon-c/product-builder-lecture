@@ -1,5 +1,5 @@
 
-const MODEL_URL = 'https://teachablemachine.withgoogle.com/models/tCFCnkWVM/';
+const MODEL_URL = 'https://teachablemachine.withgoogle.com/models/WRrmzwxYN/';
 
 class AnimalClassifier extends HTMLElement {
     constructor() {
@@ -203,7 +203,7 @@ class AnimalClassifier extends HTMLElement {
 
         try {
             const prediction = await this.model.predict(imageElement);
-            const dogPrediction = prediction.find(p => p.className === 'Class 2');
+            const dogPrediction = prediction.find(p => p.className === 'dog');
             const catPrediction = prediction.find(p => p.className === 'cat');
 
             const dog = dogPrediction ? dogPrediction.probability : 0;
