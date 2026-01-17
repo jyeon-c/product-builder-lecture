@@ -1,54 +1,59 @@
 
-# Blueprint: All-in-One Fun Page - AdSense Optimization
+# Blueprint: All-in-One Fun Page - SEO & Performance Optimization
 
 ## 1. Project Overview
 
-This project is an "All-in-One Fun Page" providing users with a variety of interactive tools. The goal is to create a high-quality, user-friendly website that meets Google AdSense program policies and is approved for monetization.
+This project is an "All-in-One Fun Page" providing users with a variety of interactive tools. The goal is to create a high-quality, user-friendly, and performant website that is well-optimized for search engines.
 
 ---
 
-## 2. Implemented Features & Design (Current State)
+## 2. Implemented Features & Design (Previous State)
 
 ### Core Functionality
-*   **Animal Classifier:** Uses a pre-trained machine learning model (Teachable Machine) to classify images from a webcam or file upload as "Dog" or "Cat".
-*   **Lotto Number Generator:** Generates a set of random lottery numbers for the user.
-*   **Partnership Inquiry Form:** A simple form (previously under a "Comments" tab) for users to send partnership inquiries.
+*   **Animal Classifier:** Uses a pre-trained machine learning model to classify images.
+*   **Lotto Number Generator:** Generates a set of random lottery numbers.
+*   **Essential Pages:** Includes About, Contact, and Privacy Policy pages for user trust.
 
 ### Design & Structure
-*   **Tab-Based Navigation:** A simple tab switcher to move between the three functions.
-*   **Basic Styling:** A single `style.css` file with fundamental styling.
-*   **AdSense Integration:** Basic AdSense script in `<head>` and two ad units in the `<body>`.
-*   **`ads.txt`:** Includes the necessary `ads.txt` file for authorized ad sellers.
+*   **Modern UI/UX:** A professional design with a consistent header, footer, and responsive layout.
+*   **Single Page Application Feel:** Core tools are integrated into the main page (`index.html`) for a seamless user experience.
 
 ---
 
-## 3. Current Task: AdSense Approval Optimization
+## 3. Current Task: SEO & Performance Audit Remediation
 
-The primary goal of this task is to comprehensively enhance the website's quality, trustworthiness, and user experience to maximize the chances of Google AdSense approval.
+This task focused on addressing a list of SEO and performance issues to improve search engine ranking, loading speed, and overall user experience.
 
-### Plan & Action Steps
+### Plan & Action Steps (Completed)
 
-1.  **Create Essential Pages for Trust:**
-    *   `[x]` **`privacy.html`**: Add a standard Privacy Policy page.
-    *   `[x]` **`about.html`**: Add an "About Us" page to explain the site's purpose.
-    *   `[x]` **`contact.html`**: Convert the partnership form into a dedicated Contact page.
+1.  **High-Priority Issues:**
+    *   `[x]` **Keyword Optimization:** Integrated relevant keywords ("AI 동물상 테스트", "로또 번호 생성기", "재미") into the `<title>`, `<meta name="description">`, and heading tags (`<h1>`, `<h2>`) across `index.html`, `about.html`, and `contact.html`.
+    *   `[x]` **Eliminate Render-Blocking Resources:** Moved all `<script>` tags to the end of the `<body>` and added the `defer` attribute to prevent them from blocking page rendering.
+    *   `[x]` **URL Canonicalization:** Added `<link rel="canonical" ...>` tags to all HTML pages to specify the preferred URL and avoid duplicate content issues.
 
-2.  **Overhaul UI/UX and Professionalize Design:**
-    *   `[x]` **Implement Header & Footer:** Create a consistent site-wide header for navigation and a footer for essential links (Privacy, About, Contact).
-    *   `[x]` **Modernize CSS:**
-        *   Revamp `style.css` with a professional, modern aesthetic.
-        *   Use CSS variables for a consistent color scheme.
-        *   Employ flexbox and grid for robust, responsive layouts.
-        *   Add soft shadows, transitions, and improved typography for a premium feel.
-    *   `[x]` **Improve Responsiveness:** Ensure the layout adapts flawlessly to all screen sizes, from mobile to desktop.
+2.  **Medium-Priority Issues:**
+    *   `[x]` **Minify JavaScript:** Minified `main.js` and `animal-classifier.js` to reduce their file size and improve page load times. The site has been updated to use the new `.min.js` files.
+    *   `[x]` **Create Custom 404 Page:** Designed and created a `404.html` page with helpful navigation links to guide users who land on a non-existent page.
+    *   `[x]` **Add Structured Data:** Implemented schema markup (JSON-LD) on `index.html` to help search engines better understand the page's content.
 
-3.  **Refactor HTML Structure:**
-    *   `[x]` **Update `index.html`:** Re-structure the main page with the new header, footer, and improved content sections.
-    *   `[x]` **Update Navigation:** Change the main navigation from simple tabs to a more professional navigation bar in the header. The three tools will be linked from this bar.
+3.  **Low-Priority Issues:**
+    *   `[x]` **Add Favicon:** Created and linked a simple `favicon.svg` to be displayed in browser tabs.
+    *   `[x]` **Add Security Headers:** Configured the server to send the `Strict-Transport-Security` header to enforce HTTPS by creating a `firebase.json` file.
+    *   `[x]` **Address Console Errors & HTTP Requests:** Refactored the main page to remove the tabbed navigation and integrate the lotto generator directly, simplifying the DOM and user flow.
 
-4.  **Refine JavaScript:**
-    *   `[x]` **Update `main.js`:** Modify the script to handle the new navigation structure and ensure smooth transitions between tools/pages.
+4.  **Items Outside of Scope:**
+    *   **SPF Record:** This requires DNS configuration and cannot be managed from the codebase. The user will be advised on how to set this up separately.
 
-5.  **Final Review & Commit:**
-    *   `[x]` Thoroughly test all pages and functionality.
-    *   `[x]` Commit all changes with a clear message: "refactor: Overhaul site for AdSense approval".
+---
+
+## 4. Completion Summary
+
+All planned SEO and performance optimizations have been successfully implemented. The website now has improved metadata, faster loading times, enhanced security, and a better user experience. The key changes include:
+
+*   **Unified Main Page:** The animal classifier and lotto number generator are now seamlessly integrated into a single, streamlined `index.html`.
+*   **Performance Boost:** JavaScript files are now minified and loaded deferred, significantly improving the initial page render time.
+*   **Enhanced SEO:** With optimized keywords, canonical tags, and structured data, the site is now more easily discoverable and understandable by search engines.
+*   **Improved User Experience:** A custom `404.html` page and a dedicated favicon provide a more polished and professional feel.
+*   **Security Hardening:** A `firebase.json` file now enforces `Strict-Transport-Security` for all visitors.
+
+The project is now in a much better state regarding technical SEO and performance.

@@ -1,23 +1,43 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 탭 메뉴 기능 ---
-    const tabLinks = document.querySelectorAll('.tab-link');
-    const tabContents = document.querySelectorAll('.tab-content');
+    // --- 로또 번호 생성기 ---
+    const generateButton = document.getElementById('generate-lotto-button');
+    const numbersContainer = document.getElementById('lotto-numbers-container');
 
-    tabLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            const tabId = link.dataset.tab;
+    if (generateButton) {
+        generateButton.addEventListener('click', () => {
+            // 기존 번호 삭제
+            numbersContainer.innerHTML = '';
 
-            // 모든 탭 링크와 콘텐츠에서 'active' 클래스를 제거합니다.
-            tabLinks.forEach(item => item.classList.remove('active'));
-            tabContents.forEach(item => item.classList.remove('active'));
+            // 1부터 45까지 숫자 배열 생성
+            const candidateNumbers = Array.from({ length: 45 }, (_, i) => i + 1);
 
-            // 클릭된 탭 링크와 해당 콘텐츠에 'active' 클래스를 추가합니다.
-            link.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+            // 6개의 랜덤 번호 추첨
+            const selectedNumbers = [];
+            for (let i = 0; i < 6; i++) {
+                const randomIndex = Math.floor(Math.random() * candidateNumbers.length);
+                selectedNumbers.push(candidateNumbers.splice(randomIndex, 1)[0]);
+            }
+
+            // 번호 정렬
+            selectedNumbers.sort((a, b) => a - b);
+
+            // 번호 표시
+            selectedNumbers.forEach(number => {
+                const ball = document.createElement('div');
+                ball.classList.add('lotto-ball');
+                ball.textContent = number;
+                // 번호별 색상 설정 (옵션)
+                if (number <= 10) ball.style.backgroundColor = '#f2b526'; // 노란색
+                else if (number <= 20) ball.style.backgroundColor = '#3498db'; // 파란색
+                else if (number <= 30) ball.style.backgroundColor = '#e74c3c'; // 빨간색
+                else if (number <= 40) ball.style.backgroundColor = '#2c3e50'; // 검은색
+                else ball.style.backgroundColor = '#2ecc71'; // 초록색
+                numbersContainer.appendChild(ball);
+            });
         });
-    });
+    }
 
     // --- 문의하기 폼 제출 처리 ---
     const contactForm = document.getElementById('contact-form');
@@ -30,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = new FormData(form);
             
             try {
-                // Formspree 엔드포인트로 비동기 요청을 보냅니다.
                 const response = await fetch(form.action, {
                     method: form.method,
                     body: data,
@@ -40,12 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    // 성공 시 메시지를 표시하고 폼을 초기화합니다.
                     formStatus.textContent = '메시지가 성공적으로 전송되었습니다. 감사합니다!';
                     formStatus.style.color = 'green';
                     form.reset();
                 } else {
-                    // 서버 측 에러 처리
                     const responseData = await response.json();
                     if (Object.hasOwn(responseData, 'errors')) {
                         formStatus.textContent = responseData["errors"].map(error => error["message"]).join(", ");
@@ -55,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     formStatus.style.color = 'red';
                 }
             } catch (error) {
-                // 네트워크 에러 등 클라이언트 측 에러 처리
                 formStatus.textContent = '메시지 전송 중 오류가 발생했습니다.';
                 formStatus.style.color = 'red';
             }
