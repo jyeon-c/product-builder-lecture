@@ -5,7 +5,7 @@ class AnimalClassifier extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.resultText = ''; // 결과 텍스트를 저장할 속성
+        this.resultText = '';
 
         const template = document.createElement('template');
         template.innerHTML = `
@@ -185,10 +185,17 @@ class AnimalClassifier extends HTMLElement {
         const reader = new FileReader();
 
         reader.onload = (e) => {
+            // Set the src for the preview image on screen
             imagePreview.src = e.target.result;
             imagePreview.style.display = 'block';
             placeholder.style.display = 'none';
-            this.predict(imagePreview);
+
+            // Create a new Image object for prediction to ensure original image data is used
+            const imageForPrediction = new Image();
+            imageForPrediction.onload = () => {
+                this.predict(imageForPrediction);
+            };
+            imageForPrediction.src = e.target.result;
         };
 
         reader.readAsDataURL(file);
@@ -203,8 +210,8 @@ class AnimalClassifier extends HTMLElement {
 
         try {
             const prediction = await this.model.predict(imageElement);
-            // metadata.json에 따르면 레이블 순서는 ["dog", "cat"] 입니다.
-            // 따라서 prediction[0]은 "dog"이고 prediction[1]은 "cat"입니다.
+            // The metadata.json shows the labels are ["dog", "cat"]
+            // So, prediction[0] is "dog" and prediction[1] is "cat"
             const dog = prediction[0].probability;
             const cat = prediction[1].probability;
             
