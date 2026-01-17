@@ -203,8 +203,12 @@ class AnimalClassifier extends HTMLElement {
 
         try {
             const prediction = await this.model.predict(imageElement);
-            const dog = prediction.find(p => p.className === '강아지상').probability;
-            const cat = prediction.find(p => p.className === '고양이상').probability;
+            const dogPrediction = prediction.find(p => p.className === 'Class 2');
+            const catPrediction = prediction.find(p => p.className === 'cat');
+
+            const dog = dogPrediction ? dogPrediction.probability : 0;
+            const cat = catPrediction ? catPrediction.probability : 0;
+            
             this.updateResult(dog, cat);
         } catch (error) {
             console.error('예측 중 오류 발생:', error);
