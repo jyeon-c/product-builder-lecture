@@ -1,5 +1,5 @@
 
-# Blueprint: All-in-One Fun Page - Modernization with Web Components
+# Blueprint: All-in-One Fun Page - Modernization & Sharing
 
 ## 1. Project Overview
 
@@ -10,55 +10,46 @@ This project is an "All-in-One Fun Page" providing users with a variety of inter
 ## 2. Implemented Features & Design
 
 ### Core Functionality
-*   **Animal Classifier:** Uses a pre-trained machine learning model to classify images.
-*   **Lotto Number Generator:** Generates a set of random lottery numbers.
-*   **Essential Pages:** Includes About, Contact, and Privacy Policy pages for user trust.
+*   **Animal Classifier Web Component:** An encapsulated component using a pre-trained ML model to classify images.
+*   **Lotto Number Generator Web Component:** An encapsulated component that generates random lottery numbers.
+*   **Essential Pages:** Includes About, Contact, and Privacy Policy pages.
 
-### Design & Structure
-*   **Modern UI/UX:** A professional design with a consistent header, footer, and responsive layout.
-*   **Single Page Application Feel:** Core tools are integrated into the main page (`index.html`) for a seamless user experience.
-
-### Technical Optimizations
+### Technical Stack
+*   **Architecture:** Modern, component-based structure using native Web Components for modularity and reusability.
 *   **Performance:** Minified and deferred JavaScript, leading to faster page loads.
-*   **SEO:** Comprehensive keyword optimization, canonical tags, structured data, `robots.txt`, and a `sitemap.xml` for enhanced search engine visibility.
+*   **SEO:** Comprehensive keyword optimization, canonical tags, structured data, `robots.txt`, and a `sitemap.xml`.
 *   **GEO Targeting:** `hreflang` tags implemented to target Korean-speaking users.
 *   **Security:** Enforced HTTPS with the `Strict-Transport-Security` header.
 
 ---
 
-## 3. Current Task: Refactor Tools into Web Components
+## 3. Current Task: Implement Result Sharing Functionality
 
-This task focuses on modernizing the codebase by refactoring the primary tools ("AI Animal Classifier" and "Lotto Number Generator") into reusable, encapsulated Web Components. This will improve code modularity, maintainability, and readability.
+This task focuses on adding a feature that allows users to share their results from the Animal Classifier and Lotto Number Generator. This will enhance user engagement and promote organic growth.
 
 ### Plan & Action Steps
 
-1.  **Create a `components` Directory:**
-    *   `[ ]` Create a new `/components` directory to store the Web Component source files.
+1.  **Update `animal-classifier.js` Component:**
+    *   `[ ]` Add a "Share Results" button to the component's template, visible after a result is generated.
+    *   `[ ]` Implement a `shareResult` method.
+    *   `[ ]` The method will first check for the presence of the `navigator.share` API.
+    *   `[ ]` **If `navigator.share` is available:** Call it with the classification result (e.g., "I'm 75% dog-like!"), the page title, and URL.
+    *   `[ ]` **If `navigator.share` is not available (Fallback):** Implement a "copy to clipboard" function (`navigator.clipboard.writeText`) with the result text.
+    *   `[ ]` Add a small, non-intrusive notification element (e.g., a toast or tooltip) to confirm that the text has been copied.
 
-2.  **Develop `LottoGenerator` Component:**
-    *   `[ ]` Create `lotto-generator.js` inside the `components` directory.
-    *   `[ ]` Implement the `LottoGenerator` class, extending `HTMLElement`.
-    *   `[ ]` Move the relevant HTML structure into a `<template>` within the component.
-    *   `[ ]` Encapsulate the component's styles within the Shadow DOM to prevent CSS conflicts.
-    *   `[ ]` Move the number generation logic into the component's class methods.
-    *   `[ ]` Define the custom element: `customElements.define('lotto-generator', LottoGenerator);`
+2.  **Update `lotto-generator.js` Component:**
+    *   `[ ]` Add a "Share Numbers" button to the component's template.
+    *   `[ ]` Implement a `shareNumbers` method with the same logic as the animal classifier.
+    *   `[ ]` **If `navigator.share` is available:** Call it with the generated lotto numbers and the site's URL.
+    *   `[ ]` **If `navigator.share` is not available (Fallback):** Copy the numbers to the clipboard.
+    *   `[ ]` Display a confirmation message upon copying.
 
-3.  **Develop `AnimalClassifier` Component:**
-    *   `[ ]` Create `animal-classifier.js` inside the `components` directory.
-    *   `[ ]` Implement the `AnimalClassifier` class, extending `HTMLElement`.
-    *   `[ ]` Move the HTML structure for the classifier into a `<template>`.
-    *   `[ ]` Encapsulate styles within the Shadow DOM.
-    *   `[ ]` Adapt the existing image classification logic (including model loading and prediction) to work within the component's lifecycle methods.
-    *   `[ ]` Define the custom element: `customElements.define('animal-classifier', AnimalClassifier);`
-
-4.  **Integrate Components into the Application:**
-    *   `[ ]` Update `index.html` to remove the old hardcoded HTML for the tools.
-    *   `[ ]` Add the new custom element tags (`<lotto-generator>` and `<animal-classifier>`) to `index.html`.
-    *   `[ ]` In `main.js`, import the new component modules (`lotto-generator.js`, `animal-classifier.js`) so they are registered and available to the browser.
-    *   `[ ]` Test thoroughly to ensure all functionality remains intact.
+3.  **Styling & Integration:**
+    *   `[ ]` Ensure the new buttons and notifications are styled consistently with the existing design.
+    *   `[ ]` Test both the primary share functionality and the clipboard fallback.
 
 ---
 
 ## 4. Completion Summary
 
-The project is being updated to use a modern, component-based architecture. This will result in a more robust, scalable, and maintainable codebase, fully aligned with modern web development best practices.
+Upon completion, users will be able to easily share their fun results with friends, increasing the site's virality and user engagement through a modern, seamless sharing experience.
